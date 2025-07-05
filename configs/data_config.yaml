@@ -1,0 +1,222 @@
+# configs/data_config.yaml
+
+# Data path configuration
+paths:
+  raw:
+    business: "data/raw/yelp_academic_dataset_business.json"
+    review: "data/raw/yelp_academic_dataset_review.json"
+    user: "data/raw/yelp_academic_dataset_user.json"
+    tip: "data/raw/yelp_academic_dataset_tip.json"
+  processed:
+    unique_categories: "data/processed/unique_categories.json"
+    dining_categories: "data/processed/dining_semantic_categories.json"
+    dining_businesses: "data/processed/dining_related_businesses.json"
+    dining_businesses_filtered: "data/processed/dining_related_businesses_filtered.json"
+    stratified_sample: "data/processed/stratified_sample.json"
+    hybrid_clusters: "data/processed/hybrid_clusters.json"
+  features_output:
+    without_review: "data/engineered/without_review/"
+    with_review: "data/engineered/with_review/"
+
+# Preprocessing configuration
+preprocessing:
+  # Analysis configuration
+  analysis:
+    target_state: "PA"
+    min_reviews: 10
+    min_rating: 3.0
+    is_open: 1
+  
+  # Sampling configuration
+  sampling:
+    size: 1000
+    stratify_by: "cluster"
+    random_seed: 42
+  
+  # Category processing configuration
+  category_processing:
+    model:
+      name: "all-MiniLM-L6-v2"
+      device: "cuda"  # or "cpu"
+      batch_size: 32
+      max_retries: 3
+      similarity_threshold: 0.6
+    clustering:
+      n_clusters: 9
+      min_cluster_size: 5
+    filtering:
+      min_category_count: 10
+      exclude_categories:
+        - "Food"
+        - "Restaurants"
+        - "Golf"
+        - "Gym"
+        - "Shopping"
+        - "Nightlife"
+        - "Sports"
+        - "Fitness"
+        - "Entertainment"
+        - "Grocery"
+        - "Supermarket"
+        - "Convenience Store"
+        - "Liquor Store"
+        - "Specialty Food"
+        - "Pharmacy"
+        - "Market"
+        - "Department Store"
+        - "Wholesale"
+        - "Candy Store"
+      exclude_name_keywords:
+        - "market"
+        - "supermarket"
+        - "grocery"
+        - "pharmacy"
+        - "store"
+        - "wholesale"
+        - "liquor"
+  
+  # Data processing configuration
+  processing:
+    max_records: 500000
+    batch_size: 1000
+    num_workers: 4
+    chunk_size: 100
+
+# Feature engineering configuration
+feature_engineering:
+  # Retained attributes
+  retained_attributes: [
+    "RestaurantsPriceRange2",
+    "OutdoorSeating",
+    "Ambience",
+    "RestaurantsReservations"
+  ]
+  
+  # Attribute configuration
+  attribute_config:
+    RestaurantsPriceRange2:
+      type: "numeric"
+      range: [1, 4]
+      processing: "normalize" 
+      description: "Price range from 1 (inexpensive) to 4 (very expensive)"
+      normalize:
+        min_value: 1
+        max_value: 4
+        output_field: "normalized_price" 
+    OutdoorSeating:
+      type: "boolean"
+      true_values: ["True", "true", "yes", "1"]
+      false_values: ["False", "false", "no", "0"]
+      processing: "binary"
+      description: "Whether the restaurant has outdoor seating"
+    Ambience:
+      type: "string"
+      processing: "keep_as_is"
+      description: "Description of the restaurant's ambience"
+    RestaurantsReservations:
+      type: "boolean"
+      true_values: ["True", "true", "yes", "1"]
+      false_values: ["False", "false", "no", "0"]
+      processing: "binary"
+      description: "Whether the restaurant accepts reservations"
+  
+  # Processing configuration
+  processing:
+    handle_missing: "impute"
+    impute_strategy:
+      RestaurantsPriceRange2: "median"
+      OutdoorSeating: "False"
+      Ambience: "leave_null"
+      RestaurantsReservations: "False"
+    combine_features: true
+  
+  # Vectorization configuration
+  vectorization:
+    text_embedding_model: "all-MiniLM-L6-v2"
+    text_columns: ["description"]
+    categorical_columns: ["category_cluster", "Ambience"]
+    boolean_columns: ["OutdoorSeating", "RestaurantsReservations"]
+    numerical_columns: ["stars", "review_count", "normalized_price"]
+    tfidf:
+      max_features: 100
+      ngram_range: [1, 2]
+      stop_words: "english"
+  
+  # Output paths
+  output:
+    without_review:
+      extracted_features: "data/engineered/without_review/extracted_features_without_review.json"
+      embeddings: "data/engineered/without_review/business_embeddings_without_review"
+      summary: "data/engineered/without_review/feature_summary_without_review.json"
+    with_review:
+      extracted_features_with_text: "data/engineered/with_review/extracted_features_with_text.json"
+      business_embeddings_with_text: "data/engineered/with_review/business_embeddings_with_text.npy"
+      business_embeddings_with_text_metadata: "data/engineered/with_review/business_embeddings_with_text_metadata.json"
+    with_summary:
+      extracted_features_with_summary: "data/engineered/with_summary/extracted_features_with_summary.json"
+      business_embeddings_with_summary: "data/engineered/with_summary/business_embeddings_with_summary.npy"
+      business_embeddings_with_summary_metadata: "data/engineered/with_summary/business_embeddings_with_summary_metadata.json"
+  vectorizer:
+    with_review:
+      feature_columns: ["stars", "review_count", "normalized_price", "category_cluster", "OutdoorSeating", "RestaurantsReservations"]
+      text_columns: ["review_tip", "description", "categories"]
+      review_tip_vectorizer: "paraphrase-minilm"
+      review_tip_bert_model: "paraphrase-MiniLM-L6-v2"
+      review_tip_pool_method: "mean"
+      review_tip_max_tokens: 400
+      review_tip_max_features: 256
+      description_vectorizer: "bert"
+      description_bert_model: "all-MiniLM-L6-v2"
+      description_max_features: 256
+      categories_vectorizer: "tfidf"
+      categories_max_features: 100
+
+# Model configuration (shared)
+model:
+  name: "all-MiniLM-L6-v2"
+  device: "cuda"      # or "cpu"
+  cache_dir: "models/cache"
+  similarity_threshold: 0.6
+  batch_size: 32      # Batch size for model inference
+  max_retries: 3      # Maximum number of retries for failed operations
+
+# Summarization configuration
+summarization:
+  model: "facebook/bart-large-cnn"
+  device: "cuda"     # Use CUDA for better performance
+  batch_size: 8      # Normal batch size
+  max_length: 256    # Normal max length
+  min_length: 50     # Normal min length
+  num_beams: 4       # Use beam search for better quality
+  temperature: 0.7   # Normal temperature
+  prompt: |
+    Summarize the following restaurant reviews. Include both positive and negative
+    aspects of:
+    • Food quality and taste
+    • Service experience
+    • Price and value
+    • Overall impression
+    Keep the summary factual and balanced.
+    {text}
+
+# Visualization configuration
+visualization:
+  style: "seaborn"
+  figsize: [12, 8]
+  dpi: 300
+  colors:
+    - "#FF9999"
+    - "#66B2FF"
+    - "#99FF99"
+    - "#FFCC99"
+    - "#FF99CC"
+  heatmap:
+    cmap: "YlOrRd"
+    annot: true
+    fmt: ".2f"
+
+# Logging configuration
+logging:
+  level: "INFO"    # Log level: DEBUG < INFO < WARNING < ERROR < CRITICAL
+  file: "logs/data_processing.log"  # Log file path
+  format: "%(asctime)s - %(name)s - %(levelname)s - %(message)s"  # Log format

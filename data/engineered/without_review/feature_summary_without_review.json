@@ -1,0 +1,85 @@
+{
+  "total_businesses": 995,
+  "features": {
+    "cluster": {
+      "type": "numerical",
+      "mean": 5.420100502512563,
+      "std": 2.507613756233709,
+      "min": 1,
+      "max": 9,
+      "missing": 0
+    },
+    "categories": {
+      "type": "categorical/text",
+      "unique_values": 731,
+      "missing": 0
+    },
+    "stars": {
+      "type": "numerical",
+      "mean": 3.8467336683417086,
+      "std": 0.5362858374212603,
+      "min": 3.0,
+      "max": 5.0,
+      "missing": 0
+    },
+    "review_count": {
+      "type": "numerical",
+      "mean": 120.0251256281407,
+      "std": 188.63104836239742,
+      "min": 10,
+      "max": 1910,
+      "missing": 0
+    },
+    "RestaurantsPriceRange2": {
+      "type": "numerical",
+      "mean": 1.707537688442211,
+      "std": 0.528744638453046,
+      "min": 1.0,
+      "max": 4.0,
+      "missing": 0
+    },
+    "OutdoorSeating": {
+      "type": "boolean",
+      "true_count": 354,
+      "false_count": 641,
+      "missing": 0
+    },
+    "Ambience": {
+      "type": "categorical/text",
+      "unique_values": 36,
+      "missing": 450
+    },
+    "RestaurantsReservations": {
+      "type": "boolean",
+      "true_count": 288,
+      "false_count": 707,
+      "missing": 0
+    },
+    "name": {
+      "type": "categorical/text",
+      "unique_values": 942,
+      "missing": 0
+    },
+    "normalized_price": {
+      "type": "numerical",
+      "mean": 0.23584589614740367,
+      "std": 0.1762482128176827,
+      "min": 0.0,
+      "max": 1.0,
+      "missing": 0
+    },
+    "category_cluster": {
+      "type": "numerical",
+      "mean": 5.420100502512563,
+      "std": 2.507613756233709,
+      "min": 1,
+      "max": 9,
+      "missing": 0
+    },
+    "description": {
+      "type": "categorical/text",
+      "unique_values": 979,
+      "missing": 0
+    }
+  }
+}
