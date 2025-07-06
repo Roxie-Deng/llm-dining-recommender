@@ -39,8 +39,24 @@ class ReviewSummarizer:
                 else:
                     print("Using CPU as specified")
         
-        # Load model with proper device setting
-        self.summarizer = pipeline('summarization', model=self.model_name, device=self.device)
+        # Load model with proper device setting and parameters
+        self.summarizer = pipeline(
+            'summarization', 
+            model=self.model_name, 
+            device=self.device,
+            model_kwargs={
+                'max_length': self.max_length,
+                'min_length': self.min_length,
+                'num_beams': self.num_beams,
+                'temperature': self.temperature,
+                'do_sample': True,
+                'early_stopping': False,
+                'length_penalty': 1.0,
+                'no_repeat_ngram_size': 2,
+                'repetition_penalty': 1.0,
+                'remove_invalid_values': True
+            }
+        )
         self.prompt = prompt or (
             "Summarize the following restaurant reviews. Include both positive and negative\n"
             "aspects of:\n"
@@ -169,21 +185,12 @@ class ReviewSummarizer:
                 retry_count = 0
                 while retry_count < self.max_retries:
                     try:
-                        # Fixed max_length parameter passing with all necessary parameters
+                        # Simplified call with only essential parameters to avoid warnings
                         batch_outputs = self.summarizer(
-                            valid_prompts, 
-                            max_length=self.max_length,
-                            min_length=self.min_length,
-                            num_beams=self.num_beams,
-                            do_sample=True,  # Enable sampling for temperature
-                            temperature=self.temperature,
+                            valid_prompts,
                             truncation=True,
-                            pad_token_id=self.summarizer.tokenizer.eos_token_id,
-                            early_stopping=False,  # Disable early_stopping
-                            length_penalty=1.0,  # Use default length_penalty
-                            no_repeat_ngram_size=2,  # Prevent repetition
-                            repetition_penalty=1.0,  # Prevent repetition
-                            remove_invalid_values=True  # Remove invalid values
+                            max_length=self.max_length,
+                            min_length=self.min_length
                         )
                         
                         # Reconstruct full batch with empty summaries for invalid texts
