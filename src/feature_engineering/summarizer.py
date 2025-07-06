@@ -7,7 +7,7 @@ class ReviewSummarizer:
                  max_length=512, min_length=50, num_beams=4, temperature=0.7, batch_size=8):
         self.model_name = model_name
         
-        # Force CUDA if available, unless explicitly set to CPU
+        # Improved device setting logic
         if device is None:
             if torch.cuda.is_available():
                 self.device = 0  # Force CUDA
@@ -16,11 +16,27 @@ class ReviewSummarizer:
                 self.device = -1
                 print("CUDA not available, using CPU")
         else:
-            self.device = device
-            if device == 0:
-                print("Using GPU as specified")
+            # Handle string device parameters
+            if isinstance(device, str):
+                if device.lower() == 'cpu':
+                    self.device = -1
+                    print("Using CPU as specified")
+                elif device.lower() == 'cuda':
+                    if torch.cuda.is_available():
+                        self.device = 0
+                        print("Using GPU as specified")
+                    else:
+                        self.device = -1
+                        print("CUDA requested but not available, falling back to CPU")
+                else:
+                    self.device = -1
+                    print(f"Unknown device '{device}', using CPU")
             else:
-                print("Using CPU as specified")
+                self.device = device
+                if device == 0:
+                    print("Using GPU as specified")
+                else:
+                    print("Using CPU as specified")
         
         # Load model with proper device setting
         self.summarizer = pipeline('summarization', model=self.model_name, device=self.device)
@@ -44,7 +60,7 @@ class ReviewSummarizer:
         prompts = [self.prompt.replace('{text}', t) for t in texts]
         summaries = []
         
-        # Use original batch size for better performance
+        # Use more conservative batch processing
         for i in range(0, len(prompts), self.batch_size):
             batch_prompts = prompts[i:i+self.batch_size]
             
@@ -54,7 +70,7 @@ class ReviewSummarizer:
             for idx, prompt in enumerate(batch_prompts):
                 # Check if text has meaningful content (not just prompt template)
                 text_content = prompt.replace(self.prompt.replace('{text}', ''), '').strip()
-                if text_content and len(text_content) > 20:  # Require more content
+                if text_content and len(text_content) > 10:  # Lower content requirement
                     valid_prompts.append(prompt)
                     valid_indices.append(idx)
             
@@ -63,7 +79,7 @@ class ReviewSummarizer:
                 batch_summaries = [""] * len(batch_prompts)
             else:
                 try:
-                    # Use original parameters for better quality
+                    # Use more conservative parameter settings
                     batch_outputs = self.summarizer(
                         valid_prompts, 
                         max_length=self.max_length,
@@ -72,7 +88,9 @@ class ReviewSummarizer:
                         do_sample=True,  # Enable sampling for temperature
                         temperature=self.temperature,
                         truncation=True,
-                        pad_token_id=self.summarizer.tokenizer.eos_token_id
+                        pad_token_id=self.summarizer.tokenizer.eos_token_id,
+                        early_stopping=False,  # Disable early_stopping
+                        length_penalty=1.0  # Use default length_penalty
                     )
                     
                     # Reconstruct full batch with empty summaries for invalid texts
@@ -87,8 +105,12 @@ class ReviewSummarizer:
             
             summaries.extend(batch_summaries)
             
-            # Clear CUDA cache periodically
+            # Improved CUDA cache clearing with error handling
             if torch.cuda.is_available() and i % (self.batch_size * 4) == 0:
-                torch.cuda.empty_cache()
+                try:
+                    torch.cuda.empty_cache()
+                except Exception as e:
+                    print(f"Warning: Failed to clear CUDA cache: {e}")
+                    # Continue processing, don't interrupt the flow
         
         return summaries 

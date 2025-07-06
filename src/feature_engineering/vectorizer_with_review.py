@@ -287,10 +287,10 @@ def create_business_embeddings_with_summary(df, config_path="configs/data_config
     print(f"Saved metadata to {metadata_path}")
     return embeddings, business_ids, all_feature_names
 
-# 说明：
-# 1. 你可以在 configs/data_config.yaml 的 feature_engineering.vectorizer.with_review 下配置：
-#    text_vectorizer: "paraphrase-minilm"  # 或 "bert"/"tfidf"
+# Configuration Notes:
+# 1. You can configure in configs/data_config.yaml under feature_engineering.vectorizer.with_review:
+#    text_vectorizer: "paraphrase-minilm"  # or "bert"/"tfidf"
 #    bert_model: "paraphrase-MiniLM-L6-v2"
-#    pool_method: "mean"  # 或 "max"
+#    pool_method: "mean"  # or "max"
 #    max_tokens: 400
-# 2. 之后如需更换模型或池化方式，只需修改配置文件，无需改代码。 
+# 2. To change models or pooling methods later, just modify the config file, no code changes needed. 

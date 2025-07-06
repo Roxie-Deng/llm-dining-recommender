@@ -183,12 +183,12 @@ model:
 # Summarization configuration
 summarization:
   model: "facebook/bart-large-cnn"
-  device: "cuda"     # Use CUDA for better performance
-  batch_size: 8      # Normal batch size
-  max_length: 256    # Normal max length
-  min_length: 50     # Normal min length
-  num_beams: 4       # Use beam search for better quality
-  temperature: 0.7   # Normal temperature
+  device: "cpu"      # Use CPU to avoid CUDA issues
+  batch_size: 1      # Very small batch to avoid memory issues
+  max_length: 64     # Very short max length
+  min_length: 10     # Very short min length  
+  num_beams: 1       # No beam search (faster and more stable)
+  temperature: 0.3   # Very low temperature for stability
   prompt: |
     Summarize the following restaurant reviews. Include both positive and negative
     aspects of:

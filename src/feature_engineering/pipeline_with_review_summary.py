@@ -23,14 +23,23 @@ class FeatureEngineeringPipelineWithReviewSummary:
         print("Step 2: Summarize review_tip...")
         summarizer = ReviewSummarizer(
             model_name=self.summarizer_cfg.get('model', 'facebook/bart-large-cnn'),
-            device=self.summarizer_cfg.get('device'),
+            device=self.summarizer_cfg.get('device', 'cpu'),
             prompt=self.summarizer_cfg.get('prompt'),
-            max_length=self.summarizer_cfg.get('max_length', 512),
-            min_length=self.summarizer_cfg.get('min_length', 50),
-            num_beams=self.summarizer_cfg.get('num_beams', 4),
-            temperature=self.summarizer_cfg.get('temperature', 0.7),
-            batch_size=self.summarizer_cfg.get('batch_size', 8)
+            max_length=self.summarizer_cfg.get('max_length', 64),
+            min_length=self.summarizer_cfg.get('min_length', 10),
+            num_beams=self.summarizer_cfg.get('num_beams', 1),
+            temperature=self.summarizer_cfg.get('temperature', 0.3),
+            batch_size=self.summarizer_cfg.get('batch_size', 1)
         )
+        
+        print(f"Summarizer parameters:")
+        print(f"  device: {summarizer.device}")
+        print(f"  max_length: {summarizer.max_length}")
+        print(f"  min_length: {summarizer.min_length}")
+        print(f"  num_beams: {summarizer.num_beams}")
+        print(f"  temperature: {summarizer.temperature}")
+        print(f"  batch_size: {summarizer.batch_size}")
+        
         df['review_tip_summary'] = summarizer.summarize_batch(df['review_tip'].fillna("").tolist())
         print("Summarization complete.")
 
