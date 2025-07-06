@@ -57,21 +57,31 @@ class ReviewSummarizer:
         self.temperature = temperature
         self.batch_size = batch_size
         
-        # GPU memory management
+        # Enhanced GPU memory management
         self.error_count = 0
         self.max_retries = 3
+        
+        # Record initial memory usage for baseline
+        if torch.cuda.is_available():
+            self.initial_memory = torch.cuda.memory_allocated() / 1024**2  # MB
+            print(f"Model loaded. Initial GPU memory: {self.initial_memory:.1f} MB")
+        else:
+            self.initial_memory = 0
 
     def _clean_gpu_memory(self, force=False):
-        """Intelligent GPU memory cleanup"""
+        """Intelligent GPU memory cleanup with baseline tracking"""
         if not torch.cuda.is_available():
             return
             
         try:
             memory_used = torch.cuda.memory_allocated() / 1024**2  # MB
-            memory_threshold = 1000  # 1GB threshold
+            memory_threshold = 2000  # 2GB threshold (increased from 1GB)
             
-            if force or memory_used > memory_threshold:
-                print(f"Cleaning GPU memory (used: {memory_used:.1f} MB)")
+            # Only clean if memory usage is significantly above baseline
+            baseline_threshold = self.initial_memory + 500  # 500MB above baseline
+            
+            if force or (memory_used > memory_threshold and memory_used > baseline_threshold):
+                print(f"Cleaning GPU memory (used: {memory_used:.1f} MB, baseline: {self.initial_memory:.1f} MB)")
                 torch.cuda.empty_cache()
                 torch.cuda.synchronize()  # Wait for all CUDA operations
                 time.sleep(0.1)  # Small delay to ensure cleanup
@@ -100,7 +110,41 @@ class ReviewSummarizer:
         
         return text
 
-    def summarize_batch(self, texts: List[str]) -> List[str]:
+    def summarize_batch(self, texts: List[str], chunk_size=200) -> List[str]:
+        """
+        Summarize texts in chunks to handle large datasets on T4 GPU
+        
+        Args:
+            texts: List of texts to summarize
+            chunk_size: Number of texts to process in each chunk (default: 200 for T4)
+        """
+        print(f"Processing {len(texts)} texts in chunks of {chunk_size}")
+        
+        all_summaries = []
+        total_chunks = (len(texts) + chunk_size - 1) // chunk_size
+        
+        for chunk_idx in range(total_chunks):
+            start_idx = chunk_idx * chunk_size
+            end_idx = min((chunk_idx + 1) * chunk_size, len(texts))
+            chunk_texts = texts[start_idx:end_idx]
+            
+            print(f"Processing chunk {chunk_idx + 1}/{total_chunks} (texts {start_idx + 1}-{end_idx})")
+            
+            # Process this chunk
+            chunk_summaries = self._process_chunk(chunk_texts)
+            all_summaries.extend(chunk_summaries)
+            
+            # Force memory cleanup after each chunk
+            if torch.cuda.is_available():
+                print(f"Cleaning memory after chunk {chunk_idx + 1}")
+                self._clean_gpu_memory(force=True)
+                time.sleep(0.5)  # Give GPU time to settle
+        
+        print(f"Completed processing all {len(texts)} texts")
+        return all_summaries
+
+    def _process_chunk(self, texts: List[str]) -> List[str]:
+        """Process a single chunk of texts"""
         prompts = [self.prompt.replace('{text}', self._validate_text(t)) for t in texts]
         summaries = []
         
@@ -125,7 +169,7 @@ class ReviewSummarizer:
                 retry_count = 0
                 while retry_count < self.max_retries:
                     try:
-                        # Use more conservative parameter settings
+                        # Fixed max_length parameter passing with all necessary parameters
                         batch_outputs = self.summarizer(
                             valid_prompts, 
                             max_length=self.max_length,
@@ -136,7 +180,10 @@ class ReviewSummarizer:
                             truncation=True,
                             pad_token_id=self.summarizer.tokenizer.eos_token_id,
                             early_stopping=False,  # Disable early_stopping
-                            length_penalty=1.0  # Use default length_penalty
+                            length_penalty=1.0,  # Use default length_penalty
+                            no_repeat_ngram_size=2,  # Prevent repetition
+                            repetition_penalty=1.0,  # Prevent repetition
+                            remove_invalid_values=True  # Remove invalid values
                         )
                         
                         # Reconstruct full batch with empty summaries for invalid texts
@@ -168,11 +215,11 @@ class ReviewSummarizer:
             
             summaries.extend(batch_summaries)
             
-            # Intelligent GPU memory management
+            # Less frequent cleanup within chunks
             if torch.cuda.is_available() and i % (self.batch_size * 10) == 0:
                 self._clean_gpu_memory()
             
-            # Force cleanup if too many errors
+            # Force cleanup only if too many errors
             if self.error_count > 5 and torch.cuda.is_available():
                 print("Too many errors detected, forcing GPU cleanup...")
                 self._clean_gpu_memory(force=True)

@@ -18,7 +18,7 @@ class FeatureEngineeringPipelineWithReviewSummary:
 
     def _check_gpu_status(self):
         """Check and report GPU status"""
-        print("🔍 Checking GPU status...")
+        print("Checking GPU status...")
         print(f"CUDA available: {torch.cuda.is_available()}")
         
         if torch.cuda.is_available():
@@ -26,14 +26,30 @@ class FeatureEngineeringPipelineWithReviewSummary:
             print(f"GPU memory total: {torch.cuda.get_device_properties(0).total_memory / 1024**3:.1f} GB")
             print(f"GPU memory allocated: {torch.cuda.memory_allocated() / 1024**2:.1f} MB")
             print(f"GPU memory cached: {torch.cuda.memory_reserved() / 1024**2:.1f} MB")
+            
+            # Determine optimal chunk size based on GPU
+            gpu_name = torch.cuda.get_device_name()
+            if "T4" in gpu_name:
+                self.chunk_size = 200  # Conservative for T4
+                print("Detected T4 GPU - using chunk size: 200")
+            elif "V100" in gpu_name:
+                self.chunk_size = 500  # More aggressive for V100
+                print("Detected V100 GPU - using chunk size: 500")
+            elif "A100" in gpu_name:
+                self.chunk_size = 1000  # Very aggressive for A100
+                print("Detected A100 GPU - using chunk size: 1000")
+            else:
+                self.chunk_size = 200  # Default conservative
+                print("Unknown GPU - using default chunk size: 200")
         else:
-            print("⚠️ CUDA not available, will use CPU")
+            print("CUDA not available, will use CPU")
+            self.chunk_size = 100  # Smaller chunks for CPU
 
     def run(self):
-        print("🚀 Starting feature engineering pipeline with review summary...")
+        print("Starting feature engineering pipeline with review summary...")
         print("=" * 60)
         
-        # Check GPU status
+        # Check GPU status and determine chunk size
         self._check_gpu_status()
         print()
         
@@ -48,10 +64,10 @@ class FeatureEngineeringPipelineWithReviewSummary:
             model_name=self.summarizer_cfg.get('model', 'facebook/bart-large-cnn'),
             device=self.summarizer_cfg.get('device', 'cuda'),  # Default to CUDA for GPU acceleration
             prompt=self.summarizer_cfg.get('prompt'),
-            max_length=self.summarizer_cfg.get('max_length', 64),  # Shorter max_length
-            min_length=self.summarizer_cfg.get('min_length', 10),  # Shorter min_length
+            max_length=self.summarizer_cfg.get('max_length', 128),  # Increased max_length
+            min_length=self.summarizer_cfg.get('min_length', 20),  # Increased min_length
             num_beams=self.summarizer_cfg.get('num_beams', 1),  # Use 1 to avoid beam search issues
-            temperature=self.summarizer_cfg.get('temperature', 0.3),  # Lower temperature
+            temperature=self.summarizer_cfg.get('temperature', 0.5),  # Better temperature
             batch_size=self.summarizer_cfg.get('batch_size', 1)  # Use 1 to avoid memory issues
         )
         
@@ -63,13 +79,14 @@ class FeatureEngineeringPipelineWithReviewSummary:
         print(f"  temperature: {summarizer.temperature}")
         print(f"  batch_size: {summarizer.batch_size}")
         print(f"  max_retries: {summarizer.max_retries}")
+        print(f"  chunk_size: {self.chunk_size}")
         
-        # Process summarization with progress tracking
+        # Process summarization with chunking for large datasets
         texts = df['review_tip'].fillna("").tolist()
-        print(f"\nStarting summarization of {len(texts)} texts...")
+        print(f"\nStarting summarization of {len(texts)} texts in chunks...")
         
-        df['review_tip_summary'] = summarizer.summarize_batch(texts)
-        print("✅ Summarization complete.")
+        df['review_tip_summary'] = summarizer.summarize_batch(texts, chunk_size=self.chunk_size)
+        print("Summarization complete.")
 
         print(f"\nStep 3: Save profile with summary to {self.summary_profile_path}")
         # Ensure output directory exists
@@ -89,7 +106,7 @@ class FeatureEngineeringPipelineWithReviewSummary:
         if torch.cuda.is_available():
             print(f"\nFinal GPU memory usage: {torch.cuda.memory_allocated() / 1024**2:.1f} MB")
         
-        print("✅ Pipeline completed successfully!")
+        print("Pipeline completed successfully!")
 
 def main():
     pipeline = FeatureEngineeringPipelineWithReviewSummary()
