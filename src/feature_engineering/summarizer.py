@@ -8,6 +8,13 @@ class ReviewSummarizer:
                  max_length=512, min_length=50, num_beams=4, temperature=0.7, batch_size=8):
         self.model_name = model_name
         
+        # Set attributes first before using them in pipeline initialization
+        self.max_length = max_length
+        self.min_length = min_length
+        self.num_beams = num_beams
+        self.temperature = temperature
+        self.batch_size = batch_size
+        
         # Improved device setting logic
         if device is None:
             if torch.cuda.is_available():
@@ -67,11 +74,6 @@ class ReviewSummarizer:
             "Keep the summary factual and balanced.\n"
             "{text}"
         )
-        self.max_length = max_length
-        self.min_length = min_length
-        self.num_beams = num_beams
-        self.temperature = temperature
-        self.batch_size = batch_size
         
         # Enhanced GPU memory management
         self.error_count = 0
