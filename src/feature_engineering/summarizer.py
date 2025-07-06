@@ -1,5 +1,5 @@
 import torch
-from transformers import pipeline, AutoTokenizer
+from transformers import AutoModelForSeq2SeqLM, AutoTokenizer
 from typing import List
 import time
 
@@ -18,44 +18,40 @@ class ReviewSummarizer:
         # Improved device setting logic
         if device is None:
             if torch.cuda.is_available():
-                self.device = 0  # Force CUDA
+                self.device = "cuda"
                 print("CUDA available, using GPU")
             else:
-                self.device = -1
+                self.device = "cpu"
                 print("CUDA not available, using CPU")
         else:
             # Handle string device parameters
             if isinstance(device, str):
                 if device.lower() == 'cpu':
-                    self.device = -1
+                    self.device = "cpu"
                     print("Using CPU as specified")
                 elif device.lower() == 'cuda':
                     if torch.cuda.is_available():
-                        self.device = 0
+                        self.device = "cuda"
                         print("Using GPU as specified")
                     else:
-                        self.device = -1
+                        self.device = "cpu"
                         print("CUDA requested but not available, falling back to CPU")
                 else:
-                    self.device = -1
+                    self.device = "cpu"
                     print(f"Unknown device '{device}', using CPU")
             else:
-                self.device = device
+                self.device = "cuda" if device == 0 else "cpu"
                 if device == 0:
                     print("Using GPU as specified")
                 else:
                     print("Using CPU as specified")
         
-        # Load tokenizer for input length validation (matching pilot study)
+        # Load model and tokenizer directly (matching pilot study approach)
+        print(f"Loading model: {self.model_name}")
         self.tokenizer = AutoTokenizer.from_pretrained(self.model_name)
-        self.max_input_tokens = 512  # Use pilot study's conservative limit
-        
-        # Load model with proper device setting (matching pilot study approach)
-        self.summarizer = pipeline(
-            'summarization', 
-            model=self.model_name, 
-            device=self.device
-        )
+        self.model = AutoModelForSeq2SeqLM.from_pretrained(self.model_name)
+        self.model.to(self.device)
+        print(f"Model loaded on device: {self.device}")
         
         self.prompt = prompt or (
             "Summarize the following restaurant reviews. Include both positive and negative\n"
@@ -116,6 +112,35 @@ class ReviewSummarizer:
         # Let tokenizer handle truncation during encoding (like pilot study)
         return text
 
+    def _generate_summary(self, text: str) -> str:
+        """Generate summary for a single text (matching pilot study approach)"""
+        try:
+            # Prepare input with truncation at tokenizer level (like pilot study)
+            inputs = self.tokenizer(text, return_tensors="pt", truncation=True, max_length=512)
+            inputs = inputs.to(self.device)
+            
+            # Generate summary
+            outputs = self.model.generate(
+                **inputs,
+                max_length=self.max_length,
+                min_length=self.min_length,
+                num_beams=self.num_beams,
+                do_sample=True,
+                temperature=self.temperature,
+                early_stopping=False,
+                length_penalty=1.0,
+                no_repeat_ngram_size=2,
+                repetition_penalty=1.0
+            )
+            
+            # Decode and return
+            summary = self.tokenizer.decode(outputs[0], skip_special_tokens=True)
+            return summary
+            
+        except Exception as e:
+            print(f"Error generating summary: {e}")
+            return ""
+
     def summarize_batch(self, texts: List[str], chunk_size=200) -> List[str]:
         """
         Summarize texts in chunks to handle large datasets on T4 GPU
@@ -154,49 +179,16 @@ class ReviewSummarizer:
         prompts = [self.prompt.replace('{text}', self._validate_text(t)) for t in texts]
         summaries = []
         
-        # Use more conservative batch processing
-        for i in range(0, len(prompts), self.batch_size):
-            batch_prompts = prompts[i:i+self.batch_size]
-            
-            # Filter out empty or very short texts
-            valid_prompts = []
-            valid_indices = []
-            for idx, prompt in enumerate(batch_prompts):
-                # Check if text has meaningful content (not just prompt template)
-                text_content = prompt.replace(self.prompt.replace('{text}', ''), '').strip()
-                if text_content and len(text_content) > 10:  # Lower content requirement
-                    valid_prompts.append(prompt)
-                    valid_indices.append(idx)
-            
-            if not valid_prompts:
-                # Return empty summaries for invalid texts
-                batch_summaries = [""] * len(batch_prompts)
-            else:
+        # Process texts one by one (like pilot study) to avoid batch issues
+        for i, prompt in enumerate(prompts):
+            # Check if text has meaningful content
+            text_content = prompt.replace(self.prompt.replace('{text}', ''), '').strip()
+            if text_content and len(text_content) > 10:
                 retry_count = 0
                 while retry_count < self.max_retries:
                     try:
-                        # Use pilot study approach: let tokenizer handle truncation during encoding
-                        # This ensures text integrity while avoiding CUDA errors
-                        batch_outputs = self.summarizer(
-                            valid_prompts,
-                            max_length=self.max_length,
-                            min_length=self.min_length,
-                            num_beams=self.num_beams,
-                            do_sample=True,
-                            temperature=self.temperature,
-                            truncation=True,  # Let tokenizer truncate at encoding time
-                            early_stopping=False,
-                            length_penalty=1.0,
-                            no_repeat_ngram_size=2,
-                            repetition_penalty=1.0
-                        )
-                        
-                        # Reconstruct full batch with empty summaries for invalid texts
-                        batch_summaries = [""] * len(batch_prompts)
-                        for idx, output in zip(valid_indices, batch_outputs):
-                            batch_summaries[idx] = output['summary_text']
-                        
-                        # Reset error count on success
+                        summary = self._generate_summary(prompt)
+                        summaries.append(summary)
                         self.error_count = 0
                         break
                         
@@ -204,7 +196,7 @@ class ReviewSummarizer:
                         retry_count += 1
                         self.error_count += 1
                         
-                        print(f"Error in summarization batch {i//self.batch_size + 1} (attempt {retry_count}): {e}")
+                        print(f"Error in summarization text {i+1} (attempt {retry_count}): {e}")
                         
                         # Force GPU memory cleanup on CUDA errors
                         if "CUDA" in str(e) and torch.cuda.is_available():
@@ -212,16 +204,16 @@ class ReviewSummarizer:
                             self._clean_gpu_memory(force=True)
                             time.sleep(1)  # Wait before retry
                         
-                        # If max retries reached, return empty summaries
+                        # If max retries reached, return empty summary
                         if retry_count >= self.max_retries:
-                            print(f"Max retries reached for batch {i//self.batch_size + 1}, returning empty summaries")
-                            batch_summaries = [""] * len(batch_prompts)
+                            print(f"Max retries reached for text {i+1}, returning empty summary")
+                            summaries.append("")
                             break
+            else:
+                summaries.append("")
             
-            summaries.extend(batch_summaries)
-            
-            # Less frequent cleanup within chunks
-            if torch.cuda.is_available() and i % (self.batch_size * 10) == 0:
+            # Less frequent cleanup
+            if torch.cuda.is_available() and i % 10 == 0:
                 self._clean_gpu_memory()
             
             # Force cleanup only if too many errors
