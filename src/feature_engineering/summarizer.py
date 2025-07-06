@@ -46,7 +46,7 @@ class ReviewSummarizer:
                 else:
                     print("Using CPU as specified")
         
-        # Load model with proper device setting (without model_kwargs to avoid warnings)
+        # Load model with proper device setting (matching pilot study approach)
         self.summarizer = pipeline(
             'summarization', 
             model=self.model_name, 
@@ -100,21 +100,15 @@ class ReviewSummarizer:
             print(f"Warning: GPU memory cleanup failed: {e}")
 
     def _validate_text(self, text):
-        """Validate and clean input text"""
+        """Validate and clean input text without truncation to maintain integrity"""
         if not text or not isinstance(text, str):
             return ""
         
-        # Remove excessive whitespace
-        text = ' '.join(text.split())
+        # Basic text cleaning without truncation
+        text = ' '.join(text.split())  # Remove excessive whitespace
+        text = text.replace('\x00', '').replace('\ufffd', '')  # Remove problematic characters
         
-        # Limit text length to prevent GPU memory issues
-        if len(text) > 1000:
-            text = text[:1000] + "..."
-        
-        # Remove problematic characters
-        text = text.replace('\x00', '').replace('\ufffd', '')
-        
-        return text
+        return text  # Return complete text without truncation
 
     def summarize_batch(self, texts: List[str], chunk_size=200) -> List[str]:
         """
@@ -175,7 +169,7 @@ class ReviewSummarizer:
                 retry_count = 0
                 while retry_count < self.max_retries:
                     try:
-                        # Call with all necessary parameters to avoid warnings
+                        # Call with parameters matching pilot study approach
                         batch_outputs = self.summarizer(
                             valid_prompts,
                             max_length=self.max_length,

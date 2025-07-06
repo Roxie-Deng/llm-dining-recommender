@@ -1,0 +1,2342 @@
+{
+  "56mB9t7f1UPPEVRd2TxvmQ": {
+    "t5": {
+      "basic": {
+        "rouge1": 0.11855670103092783,
+        "rougeL": 0.061855670103092786,
+        "bleu": 1.7325596478455324e-155,
+        "length_ratio": 6.264150943396227,
+        "repetition_rate": 0.1661631419939577,
+        "sentiment": {
+          "positive_ratio": 0.179,
+          "negative_ratio": 0.071,
+          "neutral_ratio": 0.75,
+          "compound_score": 0.9893,
+          "textblob_score": 0.29295977011494256
+        },
+        "sentiment_consistency": {
+          "kl_divergence": 8.644413120698427e-05,
+          "compound_score_diff": 0.00990000000000002,
+          "polarity_consistency": 1.0,
+          "original_sentiment": {
+            "positive_ratio": 0.162,
+            "negative_ratio": 0.076,
+            "neutral_ratio": 0.761,
+            "compound_score": 0.9992,
+            "textblob_score": 0.09551427580053531
+          },
+          "summary_sentiment": {
+            "positive_ratio": 0.179,
+            "negative_ratio": 0.071,
+            "neutral_ratio": 0.75,
+            "compound_score": 0.9893,
+            "textblob_score": 0.29295977011494256
+          }
+        }
+      },
+      "zero_shot": {
+        "rouge1": 0.11578947368421053,
+        "rougeL": 0.05789473684210526,
+        "bleu": 1.7288349082743891e-155,
+        "length_ratio": 6.132075471698113,
+        "repetition_rate": 0.1697530864197531,
+        "sentiment": {
+          "positive_ratio": 0.181,
+          "negative_ratio": 0.071,
+          "neutral_ratio": 0.748,
+          "compound_score": 0.99,
+          "textblob_score": 0.29607638888888893
+        },
+        "sentiment_consistency": {
+          "kl_divergence": 0.0003184695433693669,
+          "compound_score_diff": 0.009199999999999986,
+          "polarity_consistency": 1.0,
+          "original_sentiment": {
+            "positive_ratio": 0.162,
+            "negative_ratio": 0.076,
+            "neutral_ratio": 0.761,
+            "compound_score": 0.9992,
+            "textblob_score": 0.09551427580053531
+          },
+          "summary_sentiment": {
+            "positive_ratio": 0.181,
+            "negative_ratio": 0.071,
+            "neutral_ratio": 0.748,
+            "compound_score": 0.99,
+            "textblob_score": 0.29607638888888893
+          }
+        }
+      },
+      "few_shot": {
+        "rouge1": 0.010638297872340425,
+        "rougeL": 0.010638297872340425,
+        "bleu": 4.4656880405013616e-232,
+        "length_ratio": 5.226415094339623,
+        "repetition_rate": 0.9710144927536232,
+        "sentiment": {
+          "positive_ratio": 0.449,
+          "negative_ratio": 0.0,
+          "neutral_ratio": 0.551,
+          "compound_score": 0.9996,
+          "textblob_score": 0.7999999999999999
+        },
+        "sentiment_consistency": {
+          "kl_divergence": 1.6346896973953693,
+          "compound_score_diff": 0.00040000000000006697,
+          "polarity_consistency": 1.0,
+          "original_sentiment": {
+            "positive_ratio": 0.162,
+            "negative_ratio": 0.076,
+            "neutral_ratio": 0.761,
+            "compound_score": 0.9992,
+            "textblob_score": 0.09551427580053531
+          },
+          "summary_sentiment": {
+            "positive_ratio": 0.449,
+            "negative_ratio": 0.0,
+            "neutral_ratio": 0.551,
+            "compound_score": 0.9996,
+            "textblob_score": 0.7999999999999999
+          }
+        }
+      },
+      "role_few_shot": {
+        "rouge1": 0.19459459459459458,
+        "rougeL": 0.09729729729729729,
+        "bleu": 2.601602280789299e-155,
+        "length_ratio": 2.490566037735849,
+        "repetition_rate": 0.0,
+        "sentiment": {
+          "positive_ratio": 0.094,
+          "negative_ratio": 0.1,
+          "neutral_ratio": 0.806,
+          "compound_score": -0.4262,
+          "textblob_score": 0.20874999999999996
+        },
+        "sentiment_consistency": {
+          "kl_divergence": 0.023599908591770587,
+          "compound_score_diff": 1.4254,
+          "polarity_consistency": 0.0,
+          "original_sentiment": {
+            "positive_ratio": 0.162,
+            "negative_ratio": 0.076,
+            "neutral_ratio": 0.761,
+            "compound_score": 0.9992,
+            "textblob_score": 0.09551427580053531
+          },
+          "summary_sentiment": {
+            "positive_ratio": 0.094,
+            "negative_ratio": 0.1,
+            "neutral_ratio": 0.806,
+            "compound_score": -0.4262,
+            "textblob_score": 0.20874999999999996
+          }
+        }
+      },
+      "role_zero_shot": {
+        "rouge1": 0.05427974947807933,
+        "rougeL": 0.05427974947807933,
+        "bleu": 7.280929180305974e-232,
+        "length_ratio": 7.39622641509434,
+        "repetition_rate": 0.9411764705882353,
+        "sentiment": {
+          "positive_ratio": 0.337,
+          "negative_ratio": 0.0,
+          "neutral_ratio": 0.663,
+          "compound_score": 0.9995,
+          "textblob_score": 0.4187500000000001
+        },
+        "sentiment_consistency": {
+          "kl_divergence": 1.5403583927264584,
+          "compound_score_diff": 0.000300000000000078,
+          "polarity_consistency": 1.0,
+          "original_sentiment": {
+            "positive_ratio": 0.162,
+            "negative_ratio": 0.076,
+            "neutral_ratio": 0.761,
+            "compound_score": 0.9992,
+            "textblob_score": 0.09551427580053531
+          },
+          "summary_sentiment": {
+            "positive_ratio": 0.337,
+            "negative_ratio": 0.0,
+            "neutral_ratio": 0.663,
+            "compound_score": 0.9995,
+            "textblob_score": 0.4187500000000001
+          }
+        }
+      },
+      "cot": {
+        "rouge1": 0.1739130434782609,
+        "rougeL": 0.10144927536231883,
+        "bleu": 2.9729050750188428e-155,
+        "length_ratio": 1.5849056603773586,
+        "repetition_rate": 0.060240963855421686,
+        "sentiment": {
+          "positive_ratio": 0.155,
+          "negative_ratio": 0.064,
+          "neutral_ratio": 0.781,
+          "compound_score": 0.8957,
+          "textblob_score": 0.35833333333333334
+        },
+        "sentiment_consistency": {
+          "kl_divergence": 0.0004746531978962569,
+          "compound_score_diff": 0.10349999999999993,
+          "polarity_consistency": 1.0,
+          "original_sentiment": {
+            "positive_ratio": 0.162,
+            "negative_ratio": 0.076,
+            "neutral_ratio": 0.761,
+            "compound_score": 0.9992,
+            "textblob_score": 0.09551427580053531
+          },
+          "summary_sentiment": {
+            "positive_ratio": 0.155,
+            "negative_ratio": 0.064,
+            "neutral_ratio": 0.781,
+            "compound_score": 0.8957,
+            "textblob_score": 0.35833333333333334
+          }
+        }
+      },
+      "role_cot": {
+        "rouge1": 0.1512605042016807,
+        "rougeL": 0.10084033613445378,
+        "bleu": 3.1237148326586e-155,
+        "length_ratio": 1.2264150943396226,
+        "repetition_rate": 0.015625,
+        "sentiment": {
+          "positive_ratio": 0.214,
+          "negative_ratio": 0.115,
+          "neutral_ratio": 0.67,
+          "compound_score": 0.845,
+          "textblob_score": 0.27142857142857146
+        },
+        "sentiment_consistency": {
+          "kl_divergence": 0.020341030188009437,
+          "compound_score_diff": 0.1542,
+          "polarity_consistency": 1.0,
+          "original_sentiment": {
+            "positive_ratio": 0.162,
+            "negative_ratio": 0.076,
+            "neutral_ratio": 0.761,
+            "compound_score": 0.9992,
+            "textblob_score": 0.09551427580053531
+          },
+          "summary_sentiment": {
+            "positive_ratio": 0.214,
+            "negative_ratio": 0.115,
+            "neutral_ratio": 0.67,
+            "compound_score": 0.845,
+            "textblob_score": 0.27142857142857146
+          }
+        }
+      }
+    },
+    "bart": {
+      "basic": {
+        "rouge1": 0.19148936170212766,
+        "rougeL": 0.14893617021276595,
+        "bleu": 2.9418679193799986e-155,
+        "length_ratio": 0.7735849056603774,
+        "repetition_rate": 0.0,
+        "sentiment": {
+          "positive_ratio": 0.324,
+          "negative_ratio": 0.0,
+          "neutral_ratio": 0.676,
+          "compound_score": 0.9409,
+          "textblob_score": 0.44000000000000006
+        },
+        "sentiment_consistency": {
+          "kl_divergence": 1.5319542145479295,
+          "compound_score_diff": 0.05830000000000002,
+          "polarity_consistency": 1.0,
+          "original_sentiment": {
+            "positive_ratio": 0.162,
+            "negative_ratio": 0.076,
+            "neutral_ratio": 0.761,
+            "compound_score": 0.9992,
+            "textblob_score": 0.09551427580053531
+          },
+          "summary_sentiment": {
+            "positive_ratio": 0.324,
+            "negative_ratio": 0.0,
+            "neutral_ratio": 0.676,
+            "compound_score": 0.9409,
+            "textblob_score": 0.44000000000000006
+          }
+        }
+      },
+      "zero_shot": {
+        "rouge1": 0.19148936170212766,
+        "rougeL": 0.14893617021276595,
+        "bleu": 2.9418679193799986e-155,
+        "length_ratio": 0.7735849056603774,
+        "repetition_rate": 0.0,
+        "sentiment": {
+          "positive_ratio": 0.324,
+          "negative_ratio": 0.0,
+          "neutral_ratio": 0.676,
+          "compound_score": 0.9409,
+          "textblob_score": 0.44000000000000006
+        },
+        "sentiment_consistency": {
+          "kl_divergence": 1.5319542145479295,
+          "compound_score_diff": 0.05830000000000002,
+          "polarity_consistency": 1.0,
+          "original_sentiment": {
+            "positive_ratio": 0.162,
+            "negative_ratio": 0.076,
+            "neutral_ratio": 0.761,
+            "compound_score": 0.9992,
+            "textblob_score": 0.09551427580053531
+          },
+          "summary_sentiment": {
+            "positive_ratio": 0.324,
+            "negative_ratio": 0.0,
+            "neutral_ratio": 0.676,
+            "compound_score": 0.9409,
+            "textblob_score": 0.44000000000000006
+          }
+        }
+      },
+      "few_shot": {
+        "rouge1": 0.19148936170212766,
+        "rougeL": 0.14893617021276595,
+        "bleu": 2.9418679193799986e-155,
+        "length_ratio": 0.7735849056603774,
+        "repetition_rate": 0.0,
+        "sentiment": {
+          "positive_ratio": 0.324,
+          "negative_ratio": 0.0,
+          "neutral_ratio": 0.676,
+          "compound_score": 0.9409,
+          "textblob_score": 0.44000000000000006
+        },
+        "sentiment_consistency": {
+          "kl_divergence": 1.5319542145479295,
+          "compound_score_diff": 0.05830000000000002,
+          "polarity_consistency": 1.0,
+          "original_sentiment": {
+            "positive_ratio": 0.162,
+            "negative_ratio": 0.076,
+            "neutral_ratio": 0.761,
+            "compound_score": 0.9992,
+            "textblob_score": 0.09551427580053531
+          },
+          "summary_sentiment": {
+            "positive_ratio": 0.324,
+            "negative_ratio": 0.0,
+            "neutral_ratio": 0.676,
+            "compound_score": 0.9409,
+            "textblob_score": 0.44000000000000006
+          }
+        }
+      },
+      "role_few_shot": {
+        "rouge1": 0.18367346938775508,
+        "rougeL": 0.10204081632653061,
+        "bleu": 9.903068519895998e-232,
+        "length_ratio": 0.8490566037735849,
+        "repetition_rate": 0.0,
+        "sentiment": {
+          "positive_ratio": 0.261,
+          "negative_ratio": 0.0,
+          "neutral_ratio": 0.739,
+          "compound_score": 0.8957,
+          "textblob_score": 0.4625
+        },
+        "sentiment_consistency": {
+          "kl_divergence": 1.4991735711471246,
+          "compound_score_diff": 0.10349999999999993,
+          "polarity_consistency": 1.0,
+          "original_sentiment": {
+            "positive_ratio": 0.162,
+            "negative_ratio": 0.076,
+            "neutral_ratio": 0.761,
+            "compound_score": 0.9992,
+            "textblob_score": 0.09551427580053531
+          },
+          "summary_sentiment": {
+            "positive_ratio": 0.261,
+            "negative_ratio": 0.0,
+            "neutral_ratio": 0.739,
+            "compound_score": 0.8957,
+            "textblob_score": 0.4625
+          }
+        }
+      },
+      "role_zero_shot": {
+        "rouge1": 0.20202020202020202,
+        "rougeL": 0.14141414141414144,
+        "bleu": 3.2896672099517937e-155,
+        "length_ratio": 0.8679245283018868,
+        "repetition_rate": 0.0,
+        "sentiment": {
+          "positive_ratio": 0.335,
+          "negative_ratio": 0.0,
+          "neutral_ratio": 0.665,
+          "compound_score": 0.9562,
+          "textblob_score": 0.45
+        },
+        "sentiment_consistency": {
+          "kl_divergence": 1.5390305108802167,
+          "compound_score_diff": 0.04299999999999993,
+          "polarity_consistency": 1.0,
+          "original_sentiment": {
+            "positive_ratio": 0.162,
+            "negative_ratio": 0.076,
+            "neutral_ratio": 0.761,
+            "compound_score": 0.9992,
+            "textblob_score": 0.09551427580053531
+          },
+          "summary_sentiment": {
+            "positive_ratio": 0.335,
+            "negative_ratio": 0.0,
+            "neutral_ratio": 0.665,
+            "compound_score": 0.9562,
+            "textblob_score": 0.45
+          }
+        }
+      },
+      "cot": {
+        "rouge1": 0.12244897959183673,
+        "rougeL": 0.12244897959183673,
+        "bleu": 2.8850064143533913e-155,
+        "length_ratio": 0.8301886792452831,
+        "repetition_rate": 0.0,
+        "sentiment": {
+          "positive_ratio": 0.196,
+          "negative_ratio": 0.042,
+          "neutral_ratio": 0.762,
+          "compound_score": 0.8442,
+          "textblob_score": 0.675
+        },
+        "sentiment_consistency": {
+          "kl_divergence": 0.013209530839732678,
+          "compound_score_diff": 0.15500000000000003,
+          "polarity_consistency": 1.0,
+          "original_sentiment": {
+            "positive_ratio": 0.162,
+            "negative_ratio": 0.076,
+            "neutral_ratio": 0.761,
+            "compound_score": 0.9992,
+            "textblob_score": 0.09551427580053531
+          },
+          "summary_sentiment": {
+            "positive_ratio": 0.196,
+            "negative_ratio": 0.042,
+            "neutral_ratio": 0.762,
+            "compound_score": 0.8442,
+            "textblob_score": 0.675
+          }
+        }
+      },
+      "role_cot": {
+        "rouge1": 0.1188118811881188,
+        "rougeL": 0.07920792079207921,
+        "bleu": 9.326130898316257e-232,
+        "length_ratio": 0.9056603773584906,
+        "repetition_rate": 0.0,
+        "sentiment": {
+          "positive_ratio": 0.169,
+          "negative_ratio": 0.04,
+          "neutral_ratio": 0.79,
+          "compound_score": 0.7184,
+          "textblob_score": 0.5833333333333334
+        },
+        "sentiment_consistency": {
+          "kl_divergence": 0.013466823676081041,
+          "compound_score_diff": 0.28079999999999994,
+          "polarity_consistency": 1.0,
+          "original_sentiment": {
+            "positive_ratio": 0.162,
+            "negative_ratio": 0.076,
+            "neutral_ratio": 0.761,
+            "compound_score": 0.9992,
+            "textblob_score": 0.09551427580053531
+          },
+          "summary_sentiment": {
+            "positive_ratio": 0.169,
+            "negative_ratio": 0.04,
+            "neutral_ratio": 0.79,
+            "compound_score": 0.7184,
+            "textblob_score": 0.5833333333333334
+          }
+        }
+      }
+    }
+  },
+  "gu7iuTiVwyPAI_S2fwVi9Q": {
+    "t5": {
+      "basic": {
+        "rouge1": 0.013043478260869565,
+        "rougeL": 0.013043478260869565,
+        "bleu": 5.016155735605609e-232,
+        "length_ratio": 5.043478260869565,
+        "repetition_rate": 0.9654178674351584,
+        "sentiment": {
+          "positive_ratio": 0.0,
+          "negative_ratio": 0.244,
+          "neutral_ratio": 0.756,
+          "compound_score": -0.9978,
+          "textblob_score": 0.0
+        },
+        "sentiment_consistency": {
+          "kl_divergence": 2.2615643682979867,
+          "compound_score_diff": 1.9823,
+          "polarity_consistency": 0.0,
+          "original_sentiment": {
+            "positive_ratio": 0.11,
+            "negative_ratio": 0.076,
+            "neutral_ratio": 0.814,
+            "compound_score": 0.9845,
+            "textblob_score": 0.11550324675324677
+          },
+          "summary_sentiment": {
+            "positive_ratio": 0.0,
+            "negative_ratio": 0.244,
+            "neutral_ratio": 0.756,
+            "compound_score": -0.9978,
+            "textblob_score": 0.0
+          }
+        }
+      },
+      "zero_shot": {
+        "rouge1": 0.14035087719298245,
+        "rougeL": 0.14035087719298245,
+        "bleu": 2.033155640804038e-155,
+        "length_ratio": 0.6231884057971014,
+        "repetition_rate": 0.42857142857142855,
+        "sentiment": {
+          "positive_ratio": 0.034,
+          "negative_ratio": 0.321,
+          "neutral_ratio": 0.645,
+          "compound_score": -0.9547,
+          "textblob_score": -0.19
+        },
+        "sentiment_consistency": {
+          "kl_divergence": 0.20908537108757688,
+          "compound_score_diff": 1.9392,
+          "polarity_consistency": 0.0,
+          "original_sentiment": {
+            "positive_ratio": 0.11,
+            "negative_ratio": 0.076,
+            "neutral_ratio": 0.814,
+            "compound_score": 0.9845,
+            "textblob_score": 0.11550324675324677
+          },
+          "summary_sentiment": {
+            "positive_ratio": 0.034,
+            "negative_ratio": 0.321,
+            "neutral_ratio": 0.645,
+            "compound_score": -0.9547,
+            "textblob_score": -0.19
+          }
+        }
+      },
+      "few_shot": {
+        "rouge1": 0.024271844660194174,
+        "rougeL": 0.024271844660194174,
+        "bleu": 0,
+        "length_ratio": 4.942028985507246,
+        "repetition_rate": 0.9823529411764705,
+        "sentiment": {
+          "positive_ratio": 0.805,
+          "negative_ratio": 0.0,
+          "neutral_ratio": 0.195,
+          "compound_score": 1.0,
+          "textblob_score": 0.7999999999999987
+        },
+        "sentiment_consistency": {
+          "kl_divergence": 2.498345290310895,
+          "compound_score_diff": 0.015499999999999958,
+          "polarity_consistency": 1.0,
+          "original_sentiment": {
+            "positive_ratio": 0.11,
+            "negative_ratio": 0.076,
+            "neutral_ratio": 0.814,
+            "compound_score": 0.9845,
+            "textblob_score": 0.11550324675324677
+          },
+          "summary_sentiment": {
+            "positive_ratio": 0.805,
+            "negative_ratio": 0.0,
+            "neutral_ratio": 0.195,
+            "compound_score": 1.0,
+            "textblob_score": 0.7999999999999987
+          }
+        }
+      },
+      "role_few_shot": {
+        "rouge1": 0.01941747572815534,
+        "rougeL": 0.01941747572815534,
+        "bleu": 0,
+        "length_ratio": 4.942028985507246,
+        "repetition_rate": 0.9852941176470589,
+        "sentiment": {
+          "positive_ratio": 0.805,
+          "negative_ratio": 0.0,
+          "neutral_ratio": 0.195,
+          "compound_score": 1.0,
+          "textblob_score": 0.7999999999999987
+        },
+        "sentiment_consistency": {
+          "kl_divergence": 2.498345290310895,
+          "compound_score_diff": 0.015499999999999958,
+          "polarity_consistency": 1.0,
+          "original_sentiment": {
+            "positive_ratio": 0.11,
+            "negative_ratio": 0.076,
+            "neutral_ratio": 0.814,
+            "compound_score": 0.9845,
+            "textblob_score": 0.11550324675324677
+          },
+          "summary_sentiment": {
+            "positive_ratio": 0.805,
+            "negative_ratio": 0.0,
+            "neutral_ratio": 0.195,
+            "compound_score": 1.0,
+            "textblob_score": 0.7999999999999987
+          }
+        }
+      },
+      "role_zero_shot": {
+        "rouge1": 0.042105263157894736,
+        "rougeL": 0.042105263157894736,
+        "bleu": 6.609787421392521e-232,
+        "length_ratio": 5.855072463768116,
+        "repetition_rate": 0.9280397022332506,
+        "sentiment": {
+          "positive_ratio": 0.093,
+          "negative_ratio": 0.071,
+          "neutral_ratio": 0.835,
+          "compound_score": 0.9146,
+          "textblob_score": -0.08567073170731707
+        },
+        "sentiment_consistency": {
+          "kl_divergence": 0.0029052730944002826,
+          "compound_score_diff": 0.06990000000000007,
+          "polarity_consistency": 1.0,
+          "original_sentiment": {
+            "positive_ratio": 0.11,
+            "negative_ratio": 0.076,
+            "neutral_ratio": 0.814,
+            "compound_score": 0.9845,
+            "textblob_score": 0.11550324675324677
+          },
+          "summary_sentiment": {
+            "positive_ratio": 0.093,
+            "negative_ratio": 0.071,
+            "neutral_ratio": 0.835,
+            "compound_score": 0.9146,
+            "textblob_score": -0.08567073170731707
+          }
+        }
+      },
+      "cot": {
+        "rouge1": 0.02575107296137339,
+        "rougeL": 0.02575107296137339,
+        "bleu": 1.1230300763052134e-155,
+        "length_ratio": 5.72463768115942,
+        "repetition_rate": 0.8578680203045685,
+        "sentiment": {
+          "positive_ratio": 0.007,
+          "negative_ratio": 0.106,
+          "neutral_ratio": 0.887,
+          "compound_score": -0.9921,
+          "textblob_score": -0.26052631578947383
+        },
+        "sentiment_consistency": {
+          "kl_divergence": 0.2078070088763954,
+          "compound_score_diff": 1.9766,
+          "polarity_consistency": 0.0,
+          "original_sentiment": {
+            "positive_ratio": 0.11,
+            "negative_ratio": 0.076,
+            "neutral_ratio": 0.814,
+            "compound_score": 0.9845,
+            "textblob_score": 0.11550324675324677
+          },
+          "summary_sentiment": {
+            "positive_ratio": 0.007,
+            "negative_ratio": 0.106,
+            "neutral_ratio": 0.887,
+            "compound_score": -0.9921,
+            "textblob_score": -0.26052631578947383
+          }
+        }
+      },
+      "role_cot": {
+        "rouge1": 0.024590163934426226,
+        "rougeL": 0.024590163934426226,
+        "bleu": 5.973849768586386e-232,
+        "length_ratio": 2.5072463768115942,
+        "repetition_rate": 0.8837209302325582,
+        "sentiment": {
+          "positive_ratio": 0.0,
+          "negative_ratio": 0.231,
+          "neutral_ratio": 0.769,
+          "compound_score": -0.9578,
+          "textblob_score": 0.396875
+        },
+        "sentiment_consistency": {
+          "kl_divergence": 2.2518470384531595,
+          "compound_score_diff": 1.9423,
+          "polarity_consistency": 0.0,
+          "original_sentiment": {
+            "positive_ratio": 0.11,
+            "negative_ratio": 0.076,
+            "neutral_ratio": 0.814,
+            "compound_score": 0.9845,
+            "textblob_score": 0.11550324675324677
+          },
+          "summary_sentiment": {
+            "positive_ratio": 0.0,
+            "negative_ratio": 0.231,
+            "neutral_ratio": 0.769,
+            "compound_score": -0.9578,
+            "textblob_score": 0.396875
+          }
+        }
+      }
+    },
+    "bart": {
+      "basic": {
+        "rouge1": 0.23728813559322035,
+        "rougeL": 0.16949152542372883,
+        "bleu": 2.841108795783414e-155,
+        "length_ratio": 0.6521739130434783,
+        "repetition_rate": 0.0,
+        "sentiment": {
+          "positive_ratio": 0.135,
+          "negative_ratio": 0.0,
+          "neutral_ratio": 0.865,
+          "compound_score": 0.7717,
+          "textblob_score": 0.13055555555555556
+        },
+        "sentiment_consistency": {
+          "kl_divergence": 1.4821175372270499,
+          "compound_score_diff": 0.2128,
+          "polarity_consistency": 1.0,
+          "original_sentiment": {
+            "positive_ratio": 0.11,
+            "negative_ratio": 0.076,
+            "neutral_ratio": 0.814,
+            "compound_score": 0.9845,
+            "textblob_score": 0.11550324675324677
+          },
+          "summary_sentiment": {
+            "positive_ratio": 0.135,
+            "negative_ratio": 0.0,
+            "neutral_ratio": 0.865,
+            "compound_score": 0.7717,
+            "textblob_score": 0.13055555555555556
+          }
+        }
+      },
+      "zero_shot": {
+        "rouge1": 0.23728813559322035,
+        "rougeL": 0.16949152542372883,
+        "bleu": 2.841108795783414e-155,
+        "length_ratio": 0.6521739130434783,
+        "repetition_rate": 0.0,
+        "sentiment": {
+          "positive_ratio": 0.135,
+          "negative_ratio": 0.0,
+          "neutral_ratio": 0.865,
+          "compound_score": 0.7717,
+          "textblob_score": 0.13055555555555556
+        },
+        "sentiment_consistency": {
+          "kl_divergence": 1.4821175372270499,
+          "compound_score_diff": 0.2128,
+          "polarity_consistency": 1.0,
+          "original_sentiment": {
+            "positive_ratio": 0.11,
+            "negative_ratio": 0.076,
+            "neutral_ratio": 0.814,
+            "compound_score": 0.9845,
+            "textblob_score": 0.11550324675324677
+          },
+          "summary_sentiment": {
+            "positive_ratio": 0.135,
+            "negative_ratio": 0.0,
+            "neutral_ratio": 0.865,
+            "compound_score": 0.7717,
+            "textblob_score": 0.13055555555555556
+          }
+        }
+      },
+      "few_shot": {
+        "rouge1": 0.2096774193548387,
+        "rougeL": 0.12903225806451613,
+        "bleu": 2.7298961041783367e-155,
+        "length_ratio": 0.7536231884057971,
+        "repetition_rate": 0.0,
+        "sentiment": {
+          "positive_ratio": 0.103,
+          "negative_ratio": 0.198,
+          "neutral_ratio": 0.699,
+          "compound_score": -0.7385,
+          "textblob_score": -0.06296296296296296
+        },
+        "sentiment_consistency": {
+          "kl_divergence": 0.05844012480862851,
+          "compound_score_diff": 1.723,
+          "polarity_consistency": 0.0,
+          "original_sentiment": {
+            "positive_ratio": 0.11,
+            "negative_ratio": 0.076,
+            "neutral_ratio": 0.814,
+            "compound_score": 0.9845,
+            "textblob_score": 0.11550324675324677
+          },
+          "summary_sentiment": {
+            "positive_ratio": 0.103,
+            "negative_ratio": 0.198,
+            "neutral_ratio": 0.699,
+            "compound_score": -0.7385,
+            "textblob_score": -0.06296296296296296
+          }
+        }
+      },
+      "role_few_shot": {
+        "rouge1": 0.17460317460317462,
+        "rougeL": 0.12698412698412698,
+        "bleu": 2.5980047993150943e-155,
+        "length_ratio": 0.782608695652174,
+        "repetition_rate": 0.018867924528301886,
+        "sentiment": {
+          "positive_ratio": 0.0,
+          "negative_ratio": 0.065,
+          "neutral_ratio": 0.935,
+          "compound_score": -0.3818,
+          "textblob_score": -0.11547619047619048
+        },
+        "sentiment_consistency": {
+          "kl_divergence": 2.1891165262773504,
+          "compound_score_diff": 1.3663,
+          "polarity_consistency": 0.0,
+          "original_sentiment": {
+            "positive_ratio": 0.11,
+            "negative_ratio": 0.076,
+            "neutral_ratio": 0.814,
+            "compound_score": 0.9845,
+            "textblob_score": 0.11550324675324677
+          },
+          "summary_sentiment": {
+            "positive_ratio": 0.0,
+            "negative_ratio": 0.065,
+            "neutral_ratio": 0.935,
+            "compound_score": -0.3818,
+            "textblob_score": -0.11547619047619048
+          }
+        }
+      },
+      "role_zero_shot": {
+        "rouge1": 0.17460317460317462,
+        "rougeL": 0.12698412698412698,
+        "bleu": 2.5980047993150943e-155,
+        "length_ratio": 0.782608695652174,
+        "repetition_rate": 0.018867924528301886,
+        "sentiment": {
+          "positive_ratio": 0.0,
+          "negative_ratio": 0.065,
+          "neutral_ratio": 0.935,
+          "compound_score": -0.3818,
+          "textblob_score": -0.11547619047619048
+        },
+        "sentiment_consistency": {
+          "kl_divergence": 2.1891165262773504,
+          "compound_score_diff": 1.3663,
+          "polarity_consistency": 0.0,
+          "original_sentiment": {
+            "positive_ratio": 0.11,
+            "negative_ratio": 0.076,
+            "neutral_ratio": 0.814,
+            "compound_score": 0.9845,
+            "textblob_score": 0.11550324675324677
+          },
+          "summary_sentiment": {
+            "positive_ratio": 0.0,
+            "negative_ratio": 0.065,
+            "neutral_ratio": 0.935,
+            "compound_score": -0.3818,
+            "textblob_score": -0.11547619047619048
+          }
+        }
+      },
+      "cot": {
+        "rouge1": 0.20634920634920634,
+        "rougeL": 0.14285714285714288,
+        "bleu": 3.2968585508832984e-155,
+        "length_ratio": 0.7681159420289855,
+        "repetition_rate": 0.0,
+        "sentiment": {
+          "positive_ratio": 0.116,
+          "negative_ratio": 0.0,
+          "neutral_ratio": 0.884,
+          "compound_score": 0.7717,
+          "textblob_score": 0.09074074074074075
+        },
+        "sentiment_consistency": {
+          "kl_divergence": 1.481116611489085,
+          "compound_score_diff": 0.2128,
+          "polarity_consistency": 1.0,
+          "original_sentiment": {
+            "positive_ratio": 0.11,
+            "negative_ratio": 0.076,
+            "neutral_ratio": 0.814,
+            "compound_score": 0.9845,
+            "textblob_score": 0.11550324675324677
+          },
+          "summary_sentiment": {
+            "positive_ratio": 0.116,
+            "negative_ratio": 0.0,
+            "neutral_ratio": 0.884,
+            "compound_score": 0.7717,
+            "textblob_score": 0.09074074074074075
+          }
+        }
+      },
+      "role_cot": {
+        "rouge1": 0.18181818181818182,
+        "rougeL": 0.13636363636363635,
+        "bleu": 2.859078487550361e-155,
+        "length_ratio": 0.8260869565217391,
+        "repetition_rate": 0.017857142857142856,
+        "sentiment": {
+          "positive_ratio": 0.026,
+          "negative_ratio": 0.091,
+          "neutral_ratio": 0.882,
+          "compound_score": -0.6122,
+          "textblob_score": 0.4
+        },
+        "sentiment_consistency": {
+          "kl_divergence": 0.07966403675782291,
+          "compound_score_diff": 1.5967,
+          "polarity_consistency": 0.0,
+          "original_sentiment": {
+            "positive_ratio": 0.11,
+            "negative_ratio": 0.076,
+            "neutral_ratio": 0.814,
+            "compound_score": 0.9845,
+            "textblob_score": 0.11550324675324677
+          },
+          "summary_sentiment": {
+            "positive_ratio": 0.026,
+            "negative_ratio": 0.091,
+            "neutral_ratio": 0.882,
+            "compound_score": -0.6122,
+            "textblob_score": 0.4
+          }
+        }
+      }
+    }
+  },
+  "4jONpl2rUUJvt7UnNBOX4A": {
+    "t5": {
+      "basic": {
+        "rouge1": 0.0990990990990991,
+        "rougeL": 0.06756756756756757,
+        "bleu": 8.713383705461648e-232,
+        "length_ratio": 4.648648648648648,
+        "repetition_rate": 0.6705539358600583,
+        "sentiment": {
+          "positive_ratio": 0.301,
+          "negative_ratio": 0.014,
+          "neutral_ratio": 0.685,
+          "compound_score": 0.999,
+          "textblob_score": 0.4021666666666667
+        },
+        "sentiment_consistency": {
+          "kl_divergence": 0.010519114363269473,
+          "compound_score_diff": 0.0008000000000000229,
+          "polarity_consistency": 1.0,
+          "original_sentiment": {
+            "positive_ratio": 0.255,
+            "negative_ratio": 0.029,
+            "neutral_ratio": 0.716,
+            "compound_score": 0.9998,
+            "textblob_score": 0.2886896487813919
+          },
+          "summary_sentiment": {
+            "positive_ratio": 0.301,
+            "negative_ratio": 0.014,
+            "neutral_ratio": 0.685,
+            "compound_score": 0.999,
+            "textblob_score": 0.4021666666666667
+          }
+        }
+      },
+      "zero_shot": {
+        "rouge1": 0.11659192825112108,
+        "rougeL": 0.0852017937219731,
+        "bleu": 2.230515656576911e-155,
+        "length_ratio": 5.027027027027027,
+        "repetition_rate": 0.7142857142857143,
+        "sentiment": {
+          "positive_ratio": 0.173,
+          "negative_ratio": 0.021,
+          "neutral_ratio": 0.806,
+          "compound_score": 0.9963,
+          "textblob_score": 0.35124223602484467
+        },
+        "sentiment_consistency": {
+          "kl_divergence": 0.023516315703169893,
+          "compound_score_diff": 0.0035000000000000586,
+          "polarity_consistency": 1.0,
+          "original_sentiment": {
+            "positive_ratio": 0.255,
+            "negative_ratio": 0.029,
+            "neutral_ratio": 0.716,
+            "compound_score": 0.9998,
+            "textblob_score": 0.2886896487813919
+          },
+          "summary_sentiment": {
+            "positive_ratio": 0.173,
+            "negative_ratio": 0.021,
+            "neutral_ratio": 0.806,
+            "compound_score": 0.9963,
+            "textblob_score": 0.35124223602484467
+          }
+        }
+      },
+      "few_shot": {
+        "rouge1": 0.20711974110032363,
+        "rougeL": 0.0970873786407767,
+        "bleu": 7.067310060605216e-79,
+        "length_ratio": 3.1486486486486487,
+        "repetition_rate": 0.03017241379310345,
+        "sentiment": {
+          "positive_ratio": 0.264,
+          "negative_ratio": 0.023,
+          "neutral_ratio": 0.713,
+          "compound_score": 0.9963,
+          "textblob_score": 0.3471380471380471
+        },
+        "sentiment_consistency": {
+          "kl_divergence": 0.0008837320479368601,
+          "compound_score_diff": 0.0035000000000000586,
+          "polarity_consistency": 1.0,
+          "original_sentiment": {
+            "positive_ratio": 0.255,
+            "negative_ratio": 0.029,
+            "neutral_ratio": 0.716,
+            "compound_score": 0.9998,
+            "textblob_score": 0.2886896487813919
+          },
+          "summary_sentiment": {
+            "positive_ratio": 0.264,
+            "negative_ratio": 0.023,
+            "neutral_ratio": 0.713,
+            "compound_score": 0.9963,
+            "textblob_score": 0.3471380471380471
+          }
+        }
+      },
+      "role_few_shot": {
+        "rouge1": 0.21399176954732507,
+        "rougeL": 0.11522633744855967,
+        "bleu": 8.740862600359344e-79,
+        "length_ratio": 2.2567567567567566,
+        "repetition_rate": 0.030120481927710843,
+        "sentiment": {
+          "positive_ratio": 0.241,
+          "negative_ratio": 0.0,
+          "neutral_ratio": 0.759,
+          "compound_score": 0.9921,
+          "textblob_score": 0.36683501683501685
+        },
+        "sentiment_consistency": {
+          "kl_divergence": 0.5377170658512319,
+          "compound_score_diff": 0.00770000000000004,
+          "polarity_consistency": 1.0,
+          "original_sentiment": {
+            "positive_ratio": 0.255,
+            "negative_ratio": 0.029,
+            "neutral_ratio": 0.716,
+            "compound_score": 0.9998,
+            "textblob_score": 0.2886896487813919
+          },
+          "summary_sentiment": {
+            "positive_ratio": 0.241,
+            "negative_ratio": 0.0,
+            "neutral_ratio": 0.759,
+            "compound_score": 0.9921,
+            "textblob_score": 0.36683501683501685
+          }
+        }
+      },
+      "role_zero_shot": {
+        "rouge1": 0.0728051391862955,
+        "rougeL": 0.0728051391862955,
+        "bleu": 1.401354049580005e-155,
+        "length_ratio": 5.3108108108108105,
+        "repetition_rate": 0.8979591836734694,
+        "sentiment": {
+          "positive_ratio": 0.254,
+          "negative_ratio": 0.0,
+          "neutral_ratio": 0.746,
+          "compound_score": 0.9989,
+          "textblob_score": 0.28448275862068967
+        },
+        "sentiment_consistency": {
+          "kl_divergence": 0.5366897886710004,
+          "compound_score_diff": 0.0009000000000000119,
+          "polarity_consistency": 1.0,
+          "original_sentiment": {
+            "positive_ratio": 0.255,
+            "negative_ratio": 0.029,
+            "neutral_ratio": 0.716,
+            "compound_score": 0.9998,
+            "textblob_score": 0.2886896487813919
+          },
+          "summary_sentiment": {
+            "positive_ratio": 0.254,
+            "negative_ratio": 0.0,
+            "neutral_ratio": 0.746,
+            "compound_score": 0.9989,
+            "textblob_score": 0.28448275862068967
+          }
+        }
+      },
+      "cot": {
+        "rouge1": 0.022026431718061675,
+        "rougeL": 0.017621145374449337,
+        "bleu": 1.0077361260447321e-155,
+        "length_ratio": 5.135135135135135,
+        "repetition_rate": 0.8601583113456465,
+        "sentiment": {
+          "positive_ratio": 0.587,
+          "negative_ratio": 0.0,
+          "neutral_ratio": 0.413,
+          "compound_score": 0.9998,
+          "textblob_score": 0.7109668109668119
+        },
+        "sentiment_consistency": {
+          "kl_divergence": 0.746433750890356,
+          "compound_score_diff": 0.0,
+          "polarity_consistency": 1.0,
+          "original_sentiment": {
+            "positive_ratio": 0.255,
+            "negative_ratio": 0.029,
+            "neutral_ratio": 0.716,
+            "compound_score": 0.9998,
+            "textblob_score": 0.2886896487813919
+          },
+          "summary_sentiment": {
+            "positive_ratio": 0.587,
+            "negative_ratio": 0.0,
+            "neutral_ratio": 0.413,
+            "compound_score": 0.9998,
+            "textblob_score": 0.7109668109668119
+          }
+        }
+      },
+      "role_cot": {
+        "rouge1": 0.19834710743801653,
+        "rougeL": 0.13223140495867766,
+        "bleu": 2.133195217112029e-155,
+        "length_ratio": 0.6351351351351351,
+        "repetition_rate": 0.0,
+        "sentiment": {
+          "positive_ratio": 0.283,
+          "negative_ratio": 0.0,
+          "neutral_ratio": 0.717,
+          "compound_score": 0.9482,
+          "textblob_score": 0.20624999999999996
+        },
+        "sentiment_consistency": {
+          "kl_divergence": 0.5375102957382664,
+          "compound_score_diff": 0.05159999999999998,
+          "polarity_consistency": 1.0,
+          "original_sentiment": {
+            "positive_ratio": 0.255,
+            "negative_ratio": 0.029,
+            "neutral_ratio": 0.716,
+            "compound_score": 0.9998,
+            "textblob_score": 0.2886896487813919
+          },
+          "summary_sentiment": {
+            "positive_ratio": 0.283,
+            "negative_ratio": 0.0,
+            "neutral_ratio": 0.717,
+            "compound_score": 0.9482,
+            "textblob_score": 0.20624999999999996
+          }
+        }
+      }
+    },
+    "bart": {
+      "basic": {
+        "rouge1": 0.12698412698412698,
+        "rougeL": 0.09523809523809523,
+        "bleu": 2.168009991352761e-155,
+        "length_ratio": 0.7162162162162162,
+        "repetition_rate": 0.0,
+        "sentiment": {
+          "positive_ratio": 0.342,
+          "negative_ratio": 0.0,
+          "neutral_ratio": 0.658,
+          "compound_score": 0.9748,
+          "textblob_score": 0.5306944444444445
+        },
+        "sentiment_consistency": {
+          "kl_divergence": 0.5507060877267286,
+          "compound_score_diff": 0.025000000000000022,
+          "polarity_consistency": 1.0,
+          "original_sentiment": {
+            "positive_ratio": 0.255,
+            "negative_ratio": 0.029,
+            "neutral_ratio": 0.716,
+            "compound_score": 0.9998,
+            "textblob_score": 0.2886896487813919
+          },
+          "summary_sentiment": {
+            "positive_ratio": 0.342,
+            "negative_ratio": 0.0,
+            "neutral_ratio": 0.658,
+            "compound_score": 0.9748,
+            "textblob_score": 0.5306944444444445
+          }
+        }
+      },
+      "zero_shot": {
+        "rouge1": 0.10256410256410256,
+        "rougeL": 0.08547008547008546,
+        "bleu": 1.710308916003413e-155,
+        "length_ratio": 0.5945945945945946,
+        "repetition_rate": 0.0,
+        "sentiment": {
+          "positive_ratio": 0.348,
+          "negative_ratio": 0.0,
+          "neutral_ratio": 0.652,
+          "compound_score": 0.965,
+          "textblob_score": 0.4633680555555556
+        },
+        "sentiment_consistency": {
+          "kl_divergence": 0.5528300178246455,
+          "compound_score_diff": 0.03480000000000005,
+          "polarity_consistency": 1.0,
+          "original_sentiment": {
+            "positive_ratio": 0.255,
+            "negative_ratio": 0.029,
+            "neutral_ratio": 0.716,
+            "compound_score": 0.9998,
+            "textblob_score": 0.2886896487813919
+          },
+          "summary_sentiment": {
+            "positive_ratio": 0.348,
+            "negative_ratio": 0.0,
+            "neutral_ratio": 0.652,
+            "compound_score": 0.965,
+            "textblob_score": 0.4633680555555556
+          }
+        }
+      },
+      "few_shot": {
+        "rouge1": 0.12698412698412698,
+        "rougeL": 0.09523809523809523,
+        "bleu": 2.168009991352761e-155,
+        "length_ratio": 0.7162162162162162,
+        "repetition_rate": 0.0,
+        "sentiment": {
+          "positive_ratio": 0.342,
+          "negative_ratio": 0.0,
+          "neutral_ratio": 0.658,
+          "compound_score": 0.9748,
+          "textblob_score": 0.5306944444444445
+        },
+        "sentiment_consistency": {
+          "kl_divergence": 0.5507060877267286,
+          "compound_score_diff": 0.025000000000000022,
+          "polarity_consistency": 1.0,
+          "original_sentiment": {
+            "positive_ratio": 0.255,
+            "negative_ratio": 0.029,
+            "neutral_ratio": 0.716,
+            "compound_score": 0.9998,
+            "textblob_score": 0.2886896487813919
+          },
+          "summary_sentiment": {
+            "positive_ratio": 0.342,
+            "negative_ratio": 0.0,
+            "neutral_ratio": 0.658,
+            "compound_score": 0.9748,
+            "textblob_score": 0.5306944444444445
+          }
+        }
+      },
+      "role_few_shot": {
+        "rouge1": 0.12698412698412698,
+        "rougeL": 0.09523809523809523,
+        "bleu": 2.168009991352761e-155,
+        "length_ratio": 0.7162162162162162,
+        "repetition_rate": 0.0,
+        "sentiment": {
+          "positive_ratio": 0.342,
+          "negative_ratio": 0.0,
+          "neutral_ratio": 0.658,
+          "compound_score": 0.9748,
+          "textblob_score": 0.5306944444444445
+        },
+        "sentiment_consistency": {
+          "kl_divergence": 0.5507060877267286,
+          "compound_score_diff": 0.025000000000000022,
+          "polarity_consistency": 1.0,
+          "original_sentiment": {
+            "positive_ratio": 0.255,
+            "negative_ratio": 0.029,
+            "neutral_ratio": 0.716,
+            "compound_score": 0.9998,
+            "textblob_score": 0.2886896487813919
+          },
+          "summary_sentiment": {
+            "positive_ratio": 0.342,
+            "negative_ratio": 0.0,
+            "neutral_ratio": 0.658,
+            "compound_score": 0.9748,
+            "textblob_score": 0.5306944444444445
+          }
+        }
+      },
+      "role_zero_shot": {
+        "rouge1": 0.12698412698412698,
+        "rougeL": 0.09523809523809523,
+        "bleu": 2.168009991352761e-155,
+        "length_ratio": 0.7162162162162162,
+        "repetition_rate": 0.0,
+        "sentiment": {
+          "positive_ratio": 0.342,
+          "negative_ratio": 0.0,
+          "neutral_ratio": 0.658,
+          "compound_score": 0.9748,
+          "textblob_score": 0.5306944444444445
+        },
+        "sentiment_consistency": {
+          "kl_divergence": 0.5507060877267286,
+          "compound_score_diff": 0.025000000000000022,
+          "polarity_consistency": 1.0,
+          "original_sentiment": {
+            "positive_ratio": 0.255,
+            "negative_ratio": 0.029,
+            "neutral_ratio": 0.716,
+            "compound_score": 0.9998,
+            "textblob_score": 0.2886896487813919
+          },
+          "summary_sentiment": {
+            "positive_ratio": 0.342,
+            "negative_ratio": 0.0,
+            "neutral_ratio": 0.658,
+            "compound_score": 0.9748,
+            "textblob_score": 0.5306944444444445
+          }
+        }
+      },
+      "cot": {
+        "rouge1": 0.12598425196850396,
+        "rougeL": 0.09448818897637797,
+        "bleu": 2.2039047089504863e-155,
+        "length_ratio": 0.7297297297297297,
+        "repetition_rate": 0.0,
+        "sentiment": {
+          "positive_ratio": 0.337,
+          "negative_ratio": 0.0,
+          "neutral_ratio": 0.663,
+          "compound_score": 0.9748,
+          "textblob_score": 0.5306944444444445
+        },
+        "sentiment_consistency": {
+          "kl_divergence": 0.5490415162936901,
+          "compound_score_diff": 0.025000000000000022,
+          "polarity_consistency": 1.0,
+          "original_sentiment": {
+            "positive_ratio": 0.255,
+            "negative_ratio": 0.029,
+            "neutral_ratio": 0.716,
+            "compound_score": 0.9998,
+            "textblob_score": 0.2886896487813919
+          },
+          "summary_sentiment": {
+            "positive_ratio": 0.337,
+            "negative_ratio": 0.0,
+            "neutral_ratio": 0.663,
+            "compound_score": 0.9748,
+            "textblob_score": 0.5306944444444445
+          }
+        }
+      },
+      "role_cot": {
+        "rouge1": 0.2105263157894737,
+        "rougeL": 0.10526315789473685,
+        "bleu": 2.431471824887183e-155,
+        "length_ratio": 0.5405405405405406,
+        "repetition_rate": 0.0,
+        "sentiment": {
+          "positive_ratio": 0.205,
+          "negative_ratio": 0.0,
+          "neutral_ratio": 0.795,
+          "compound_score": 0.8605,
+          "textblob_score": 0.5499999999999999
+        },
+        "sentiment_consistency": {
+          "kl_divergence": 0.5457930577338242,
+          "compound_score_diff": 0.13929999999999998,
+          "polarity_consistency": 1.0,
+          "original_sentiment": {
+            "positive_ratio": 0.255,
+            "negative_ratio": 0.029,
+            "neutral_ratio": 0.716,
+            "compound_score": 0.9998,
+            "textblob_score": 0.2886896487813919
+          },
+          "summary_sentiment": {
+            "positive_ratio": 0.205,
+            "negative_ratio": 0.0,
+            "neutral_ratio": 0.795,
+            "compound_score": 0.8605,
+            "textblob_score": 0.5499999999999999
+          }
+        }
+      }
+    }
+  },
+  "4hv1n1VBzMvE-T4UtIcOcw": {
+    "t5": {
+      "basic": {
+        "rouge1": 0.0658682634730539,
+        "rougeL": 0.029940119760479042,
+        "bleu": 3.772573403582945e-79,
+        "length_ratio": 3.676056338028169,
+        "repetition_rate": 0.9307692307692308,
+        "sentiment": {
+          "positive_ratio": 0.024,
+          "negative_ratio": 0.008,
+          "neutral_ratio": 0.968,
+          "compound_score": 0.6369,
+          "textblob_score": 0.55
+        },
+        "sentiment_consistency": {
+          "kl_divergence": 0.3125371833287845,
+          "compound_score_diff": 0.36229999999999996,
+          "polarity_consistency": 1.0,
+          "original_sentiment": {
+            "positive_ratio": 0.199,
+            "negative_ratio": 0.045,
+            "neutral_ratio": 0.757,
+            "compound_score": 0.9992,
+            "textblob_score": 0.2057335557960558
+          },
+          "summary_sentiment": {
+            "positive_ratio": 0.024,
+            "negative_ratio": 0.008,
+            "neutral_ratio": 0.968,
+            "compound_score": 0.6369,
+            "textblob_score": 0.55
+          }
+        }
+      },
+      "zero_shot": {
+        "rouge1": 0.18305084745762712,
+        "rougeL": 0.12203389830508475,
+        "bleu": 2.9972603823004286e-155,
+        "length_ratio": 3.028169014084507,
+        "repetition_rate": 0.04672897196261682,
+        "sentiment": {
+          "positive_ratio": 0.195,
+          "negative_ratio": 0.027,
+          "neutral_ratio": 0.779,
+          "compound_score": 0.9901,
+          "textblob_score": 0.22551652892561985
+        },
+        "sentiment_consistency": {
+          "kl_divergence": 0.005341522163450199,
+          "compound_score_diff": 0.009099999999999997,
+          "polarity_consistency": 1.0,
+          "original_sentiment": {
+            "positive_ratio": 0.199,
+            "negative_ratio": 0.045,
+            "neutral_ratio": 0.757,
+            "compound_score": 0.9992,
+            "textblob_score": 0.2057335557960558
+          },
+          "summary_sentiment": {
+            "positive_ratio": 0.195,
+            "negative_ratio": 0.027,
+            "neutral_ratio": 0.779,
+            "compound_score": 0.9901,
+            "textblob_score": 0.22551652892561985
+          }
+        }
+      },
+      "few_shot": {
+        "rouge1": 0.17647058823529413,
+        "rougeL": 0.11764705882352941,
+        "bleu": 2.7854963152924134e-155,
+        "length_ratio": 2.7464788732394365,
+        "repetition_rate": 0.04639175257731959,
+        "sentiment": {
+          "positive_ratio": 0.173,
+          "negative_ratio": 0.054,
+          "neutral_ratio": 0.773,
+          "compound_score": 0.9813,
+          "textblob_score": 0.27599999999999997
+        },
+        "sentiment_consistency": {
+          "kl_divergence": 0.0038249058308582815,
+          "compound_score_diff": 0.017900000000000027,
+          "polarity_consistency": 1.0,
+          "original_sentiment": {
+            "positive_ratio": 0.199,
+            "negative_ratio": 0.045,
+            "neutral_ratio": 0.757,
+            "compound_score": 0.9992,
+            "textblob_score": 0.2057335557960558
+          },
+          "summary_sentiment": {
+            "positive_ratio": 0.173,
+            "negative_ratio": 0.054,
+            "neutral_ratio": 0.773,
+            "compound_score": 0.9813,
+            "textblob_score": 0.27599999999999997
+          }
+        }
+      },
+      "role_few_shot": {
+        "rouge1": 0.12030075187969924,
+        "rougeL": 0.08020050125313283,
+        "bleu": 2.428528749392022e-155,
+        "length_ratio": 4.323943661971831,
+        "repetition_rate": 0.6078431372549019,
+        "sentiment": {
+          "positive_ratio": 0.213,
+          "negative_ratio": 0.0,
+          "neutral_ratio": 0.787,
+          "compound_score": 0.9975,
+          "textblob_score": 0.35741341991341996
+        },
+        "sentiment_consistency": {
+          "kl_divergence": 0.8536638342769615,
+          "compound_score_diff": 0.0016999999999999238,
+          "polarity_consistency": 1.0,
+          "original_sentiment": {
+            "positive_ratio": 0.199,
+            "negative_ratio": 0.045,
+            "neutral_ratio": 0.757,
+            "compound_score": 0.9992,
+            "textblob_score": 0.2057335557960558
+          },
+          "summary_sentiment": {
+            "positive_ratio": 0.213,
+            "negative_ratio": 0.0,
+            "neutral_ratio": 0.787,
+            "compound_score": 0.9975,
+            "textblob_score": 0.35741341991341996
+          }
+        }
+      },
+      "role_zero_shot": {
+        "rouge1": 0.020050125313283207,
+        "rougeL": 0.020050125313283207,
+        "bleu": 6.304088052930037e-232,
+        "length_ratio": 3.9295774647887325,
+        "repetition_rate": 0.9676258992805755,
+        "sentiment": {
+          "positive_ratio": 0.0,
+          "negative_ratio": 0.323,
+          "neutral_ratio": 0.677,
+          "compound_score": -0.9983,
+          "textblob_score": 0.0
+        },
+        "sentiment_consistency": {
+          "kl_divergence": 4.25672498141308,
+          "compound_score_diff": 1.9975,
+          "polarity_consistency": 0.0,
+          "original_sentiment": {
+            "positive_ratio": 0.199,
+            "negative_ratio": 0.045,
+            "neutral_ratio": 0.757,
+            "compound_score": 0.9992,
+            "textblob_score": 0.2057335557960558
+          },
+          "summary_sentiment": {
+            "positive_ratio": 0.0,
+            "negative_ratio": 0.323,
+            "neutral_ratio": 0.677,
+            "compound_score": -0.9983,
+            "textblob_score": 0.0
+          }
+        }
+      },
+      "cot": {
+        "rouge1": 0.06015037593984963,
+        "rougeL": 0.04887218045112782,
+        "bleu": 1.6024783938504389e-155,
+        "length_ratio": 6.464788732394366,
+        "repetition_rate": 0.8253275109170306,
+        "sentiment": {
+          "positive_ratio": 0.205,
+          "negative_ratio": 0.0,
+          "neutral_ratio": 0.795,
+          "compound_score": 0.9987,
+          "textblob_score": 0.32
+        },
+        "sentiment_consistency": {
+          "kl_divergence": 0.8536257926632389,
+          "compound_score_diff": 0.0004999999999999449,
+          "polarity_consistency": 1.0,
+          "original_sentiment": {
+            "positive_ratio": 0.199,
+            "negative_ratio": 0.045,
+            "neutral_ratio": 0.757,
+            "compound_score": 0.9992,
+            "textblob_score": 0.2057335557960558
+          },
+          "summary_sentiment": {
+            "positive_ratio": 0.205,
+            "negative_ratio": 0.0,
+            "neutral_ratio": 0.795,
+            "compound_score": 0.9987,
+            "textblob_score": 0.32
+          }
+        }
+      },
+      "role_cot": {
+        "rouge1": 0.05139186295503212,
+        "rougeL": 0.03854389721627408,
+        "bleu": 7.346545322321413e-232,
+        "length_ratio": 5.859154929577465,
+        "repetition_rate": 0.9108433734939759,
+        "sentiment": {
+          "positive_ratio": 0.066,
+          "negative_ratio": 0.026,
+          "neutral_ratio": 0.908,
+          "compound_score": -0.3612,
+          "textblob_score": 0.09361702127659575
+        },
+        "sentiment_consistency": {
+          "kl_divergence": 0.10662782253658273,
+          "compound_score_diff": 1.3604,
+          "polarity_consistency": 0.0,
+          "original_sentiment": {
+            "positive_ratio": 0.199,
+            "negative_ratio": 0.045,
+            "neutral_ratio": 0.757,
+            "compound_score": 0.9992,
+            "textblob_score": 0.2057335557960558
+          },
+          "summary_sentiment": {
+            "positive_ratio": 0.066,
+            "negative_ratio": 0.026,
+            "neutral_ratio": 0.908,
+            "compound_score": -0.3612,
+            "textblob_score": 0.09361702127659575
+          }
+        }
+      }
+    },
+    "bart": {
+      "basic": {
+        "rouge1": 0.15789473684210525,
+        "rougeL": 0.14035087719298245,
+        "bleu": 7.026829749626874e-79,
+        "length_ratio": 0.5492957746478874,
+        "repetition_rate": 0.0,
+        "sentiment": {
+          "positive_ratio": 0.263,
+          "negative_ratio": 0.045,
+          "neutral_ratio": 0.692,
+          "compound_score": 0.8934,
+          "textblob_score": 0.48409090909090907
+        },
+        "sentiment_consistency": {
+          "kl_divergence": 0.0124704221663718,
+          "compound_score_diff": 0.1058,
+          "polarity_consistency": 1.0,
+          "original_sentiment": {
+            "positive_ratio": 0.199,
+            "negative_ratio": 0.045,
+            "neutral_ratio": 0.757,
+            "compound_score": 0.9992,
+            "textblob_score": 0.2057335557960558
+          },
+          "summary_sentiment": {
+            "positive_ratio": 0.263,
+            "negative_ratio": 0.045,
+            "neutral_ratio": 0.692,
+            "compound_score": 0.8934,
+            "textblob_score": 0.48409090909090907
+          }
+        }
+      },
+      "zero_shot": {
+        "rouge1": 0.26315789473684204,
+        "rougeL": 0.22807017543859648,
+        "bleu": 1.0107169538713076e-78,
+        "length_ratio": 0.5774647887323944,
+        "repetition_rate": 0.0,
+        "sentiment": {
+          "positive_ratio": 0.245,
+          "negative_ratio": 0.043,
+          "neutral_ratio": 0.711,
+          "compound_score": 0.8807,
+          "textblob_score": 0.6000000000000001
+        },
+        "sentiment_consistency": {
+          "kl_divergence": 0.008120036546322755,
+          "compound_score_diff": 0.11849999999999994,
+          "polarity_consistency": 1.0,
+          "original_sentiment": {
+            "positive_ratio": 0.199,
+            "negative_ratio": 0.045,
+            "neutral_ratio": 0.757,
+            "compound_score": 0.9992,
+            "textblob_score": 0.2057335557960558
+          },
+          "summary_sentiment": {
+            "positive_ratio": 0.245,
+            "negative_ratio": 0.043,
+            "neutral_ratio": 0.711,
+            "compound_score": 0.8807,
+            "textblob_score": 0.6000000000000001
+          }
+        }
+      },
+      "few_shot": {
+        "rouge1": 0.20689655172413793,
+        "rougeL": 0.17241379310344826,
+        "bleu": 2.4549996154585112e-155,
+        "length_ratio": 0.5915492957746479,
+        "repetition_rate": 0.0,
+        "sentiment": {
+          "positive_ratio": 0.201,
+          "negative_ratio": 0.0,
+          "neutral_ratio": 0.799,
+          "compound_score": 0.8689,
+          "textblob_score": 0.4625
+        },
+        "sentiment_consistency": {
+          "kl_divergence": 0.8537478466562853,
+          "compound_score_diff": 0.13029999999999997,
+          "polarity_consistency": 1.0,
+          "original_sentiment": {
+            "positive_ratio": 0.199,
+            "negative_ratio": 0.045,
+            "neutral_ratio": 0.757,
+            "compound_score": 0.9992,
+            "textblob_score": 0.2057335557960558
+          },
+          "summary_sentiment": {
+            "positive_ratio": 0.201,
+            "negative_ratio": 0.0,
+            "neutral_ratio": 0.799,
+            "compound_score": 0.8689,
+            "textblob_score": 0.4625
+          }
+        }
+      },
+      "role_few_shot": {
+        "rouge1": 0.22033898305084745,
+        "rougeL": 0.1864406779661017,
+        "bleu": 2.717602214085235e-155,
+        "length_ratio": 0.6338028169014085,
+        "repetition_rate": 0.0,
+        "sentiment": {
+          "positive_ratio": 0.213,
+          "negative_ratio": 0.0,
+          "neutral_ratio": 0.787,
+          "compound_score": 0.8779,
+          "textblob_score": 0.4625
+        },
+        "sentiment_consistency": {
+          "kl_divergence": 0.8536638342769615,
+          "compound_score_diff": 0.12129999999999996,
+          "polarity_consistency": 1.0,
+          "original_sentiment": {
+            "positive_ratio": 0.199,
+            "negative_ratio": 0.045,
+            "neutral_ratio": 0.757,
+            "compound_score": 0.9992,
+            "textblob_score": 0.2057335557960558
+          },
+          "summary_sentiment": {
+            "positive_ratio": 0.213,
+            "negative_ratio": 0.0,
+            "neutral_ratio": 0.787,
+            "compound_score": 0.8779,
+            "textblob_score": 0.4625
+          }
+        }
+      },
+      "role_zero_shot": {
+        "rouge1": 0.22033898305084745,
+        "rougeL": 0.1864406779661017,
+        "bleu": 2.717602214085235e-155,
+        "length_ratio": 0.6338028169014085,
+        "repetition_rate": 0.0,
+        "sentiment": {
+          "positive_ratio": 0.213,
+          "negative_ratio": 0.0,
+          "neutral_ratio": 0.787,
+          "compound_score": 0.8779,
+          "textblob_score": 0.4625
+        },
+        "sentiment_consistency": {
+          "kl_divergence": 0.8536638342769615,
+          "compound_score_diff": 0.12129999999999996,
+          "polarity_consistency": 1.0,
+          "original_sentiment": {
+            "positive_ratio": 0.199,
+            "negative_ratio": 0.045,
+            "neutral_ratio": 0.757,
+            "compound_score": 0.9992,
+            "textblob_score": 0.2057335557960558
+          },
+          "summary_sentiment": {
+            "positive_ratio": 0.213,
+            "negative_ratio": 0.0,
+            "neutral_ratio": 0.787,
+            "compound_score": 0.8779,
+            "textblob_score": 0.4625
+          }
+        }
+      },
+      "cot": {
+        "rouge1": 0.1607142857142857,
+        "rougeL": 0.125,
+        "bleu": 5.2200239011012725e-232,
+        "length_ratio": 0.5492957746478874,
+        "repetition_rate": 0.0,
+        "sentiment": {
+          "positive_ratio": 0.186,
+          "negative_ratio": 0.0,
+          "neutral_ratio": 0.814,
+          "compound_score": 0.802,
+          "textblob_score": 0.4625
+        },
+        "sentiment_consistency": {
+          "kl_divergence": 0.8551021741722614,
+          "compound_score_diff": 0.19719999999999993,
+          "polarity_consistency": 1.0,
+          "original_sentiment": {
+            "positive_ratio": 0.199,
+            "negative_ratio": 0.045,
+            "neutral_ratio": 0.757,
+            "compound_score": 0.9992,
+            "textblob_score": 0.2057335557960558
+          },
+          "summary_sentiment": {
+            "positive_ratio": 0.186,
+            "negative_ratio": 0.0,
+            "neutral_ratio": 0.814,
+            "compound_score": 0.802,
+            "textblob_score": 0.4625
+          }
+        }
+      },
+      "role_cot": {
+        "rouge1": 0.20689655172413793,
+        "rougeL": 0.17241379310344826,
+        "bleu": 2.4549996154585112e-155,
+        "length_ratio": 0.5915492957746479,
+        "repetition_rate": 0.0,
+        "sentiment": {
+          "positive_ratio": 0.201,
+          "negative_ratio": 0.0,
+          "neutral_ratio": 0.799,
+          "compound_score": 0.8689,
+          "textblob_score": 0.4625
+        },
+        "sentiment_consistency": {
+          "kl_divergence": 0.8537478466562853,
+          "compound_score_diff": 0.13029999999999997,
+          "polarity_consistency": 1.0,
+          "original_sentiment": {
+            "positive_ratio": 0.199,
+            "negative_ratio": 0.045,
+            "neutral_ratio": 0.757,
+            "compound_score": 0.9992,
+            "textblob_score": 0.2057335557960558
+          },
+          "summary_sentiment": {
+            "positive_ratio": 0.201,
+            "negative_ratio": 0.0,
+            "neutral_ratio": 0.799,
+            "compound_score": 0.8689,
+            "textblob_score": 0.4625
+          }
+        }
+      }
+    }
+  },
+  "zBT8l6b3wE_H541Msvg4Wg": {
+    "t5": {
+      "basic": {
+        "rouge1": 0.15816326530612246,
+        "rougeL": 0.1173469387755102,
+        "bleu": 9.871742677130652e-232,
+        "length_ratio": 4.264705882352941,
+        "repetition_rate": 0.17301038062283736,
+        "sentiment": {
+          "positive_ratio": 0.137,
+          "negative_ratio": 0.014,
+          "neutral_ratio": 0.85,
+          "compound_score": 0.9918,
+          "textblob_score": 0.07326923076923077
+        },
+        "sentiment_consistency": {
+          "kl_divergence": 0.030015780434473296,
+          "compound_score_diff": 0.008000000000000007,
+          "polarity_consistency": 1.0,
+          "original_sentiment": {
+            "positive_ratio": 0.197,
+            "negative_ratio": 0.039,
+            "neutral_ratio": 0.764,
+            "compound_score": 0.9998,
+            "textblob_score": 0.2093009023804478
+          },
+          "summary_sentiment": {
+            "positive_ratio": 0.137,
+            "negative_ratio": 0.014,
+            "neutral_ratio": 0.85,
+            "compound_score": 0.9918,
+            "textblob_score": 0.07326923076923077
+          }
+        }
+      },
+      "zero_shot": {
+        "rouge1": 0.1607142857142857,
+        "rougeL": 0.10714285714285714,
+        "bleu": 4.973563519814707e-232,
+        "length_ratio": 0.5294117647058824,
+        "repetition_rate": 0.02857142857142857,
+        "sentiment": {
+          "positive_ratio": 0.398,
+          "negative_ratio": 0.0,
+          "neutral_ratio": 0.602,
+          "compound_score": 0.9628,
+          "textblob_score": 0.5062500000000001
+        },
+        "sentiment_consistency": {
+          "kl_divergence": 0.8150138268140625,
+          "compound_score_diff": 0.03700000000000003,
+          "polarity_consistency": 1.0,
+          "original_sentiment": {
+            "positive_ratio": 0.197,
+            "negative_ratio": 0.039,
+            "neutral_ratio": 0.764,
+            "compound_score": 0.9998,
+            "textblob_score": 0.2093009023804478
+          },
+          "summary_sentiment": {
+            "positive_ratio": 0.398,
+            "negative_ratio": 0.0,
+            "neutral_ratio": 0.602,
+            "compound_score": 0.9628,
+            "textblob_score": 0.5062500000000001
+          }
+        }
+      },
+      "few_shot": {
+        "rouge1": 0.04556962025316456,
+        "rougeL": 0.030379746835443037,
+        "bleu": 7.644971906427548e-232,
+        "length_ratio": 3.7941176470588234,
+        "repetition_rate": 0.9260700389105059,
+        "sentiment": {
+          "positive_ratio": 0.25,
+          "negative_ratio": 0.0,
+          "neutral_ratio": 0.75,
+          "compound_score": 0.9961,
+          "textblob_score": 0.06933593749999994
+        },
+        "sentiment_consistency": {
+          "kl_divergence": 0.7386778294629814,
+          "compound_score_diff": 0.0037000000000000366,
+          "polarity_consistency": 1.0,
+          "original_sentiment": {
+            "positive_ratio": 0.197,
+            "negative_ratio": 0.039,
+            "neutral_ratio": 0.764,
+            "compound_score": 0.9998,
+            "textblob_score": 0.2093009023804478
+          },
+          "summary_sentiment": {
+            "positive_ratio": 0.25,
+            "negative_ratio": 0.0,
+            "neutral_ratio": 0.75,
+            "compound_score": 0.9961,
+            "textblob_score": 0.06933593749999994
+          }
+        }
+      },
+      "role_few_shot": {
+        "rouge1": 0.0332409972299169,
+        "rougeL": 0.0332409972299169,
+        "bleu": 6.054173467777274e-232,
+        "length_ratio": 3.6176470588235294,
+        "repetition_rate": 0.9755102040816327,
+        "sentiment": {
+          "positive_ratio": 0.458,
+          "negative_ratio": 0.0,
+          "neutral_ratio": 0.542,
+          "compound_score": 0.9996,
+          "textblob_score": 1.0
+        },
+        "sentiment_consistency": {
+          "kl_divergence": 0.8675651057006519,
+          "compound_score_diff": 0.00019999999999997797,
+          "polarity_consistency": 1.0,
+          "original_sentiment": {
+            "positive_ratio": 0.197,
+            "negative_ratio": 0.039,
+            "neutral_ratio": 0.764,
+            "compound_score": 0.9998,
+            "textblob_score": 0.2093009023804478
+          },
+          "summary_sentiment": {
+            "positive_ratio": 0.458,
+            "negative_ratio": 0.0,
+            "neutral_ratio": 0.542,
+            "compound_score": 0.9996,
+            "textblob_score": 1.0
+          }
+        }
+      },
+      "role_zero_shot": {
+        "rouge1": 0.05429864253393665,
+        "rougeL": 0.0497737556561086,
+        "bleu": 7.879163363402065e-232,
+        "length_ratio": 5.044117647058823,
+        "repetition_rate": 0.9298245614035088,
+        "sentiment": {
+          "positive_ratio": 0.192,
+          "negative_ratio": 0.0,
+          "neutral_ratio": 0.808,
+          "compound_score": 0.9969,
+          "textblob_score": 0.4916666666666667
+        },
+        "sentiment_consistency": {
+          "kl_divergence": 0.7337695590714463,
+          "compound_score_diff": 0.0029000000000000137,
+          "polarity_consistency": 1.0,
+          "original_sentiment": {
+            "positive_ratio": 0.197,
+            "negative_ratio": 0.039,
+            "neutral_ratio": 0.764,
+            "compound_score": 0.9998,
+            "textblob_score": 0.2093009023804478
+          },
+          "summary_sentiment": {
+            "positive_ratio": 0.192,
+            "negative_ratio": 0.0,
+            "neutral_ratio": 0.808,
+            "compound_score": 0.9969,
+            "textblob_score": 0.4916666666666667
+          }
+        }
+      },
+      "cot": {
+        "rouge1": 0.007285974499089253,
+        "rougeL": 0.007285974499089253,
+        "bleu": 4.640795379538959e-232,
+        "length_ratio": 6.985294117647059,
+        "repetition_rate": 0.8987341772151899,
+        "sentiment": {
+          "positive_ratio": 0.149,
+          "negative_ratio": 0.0,
+          "neutral_ratio": 0.851,
+          "compound_score": 0.998,
+          "textblob_score": 1.0
+        },
+        "sentiment_consistency": {
+          "kl_divergence": 0.7441052715697228,
+          "compound_score_diff": 0.0018000000000000238,
+          "polarity_consistency": 1.0,
+          "original_sentiment": {
+            "positive_ratio": 0.197,
+            "negative_ratio": 0.039,
+            "neutral_ratio": 0.764,
+            "compound_score": 0.9998,
+            "textblob_score": 0.2093009023804478
+          },
+          "summary_sentiment": {
+            "positive_ratio": 0.149,
+            "negative_ratio": 0.0,
+            "neutral_ratio": 0.851,
+            "compound_score": 0.998,
+            "textblob_score": 1.0
+          }
+        }
+      },
+      "role_cot": {
+        "rouge1": 0.02288329519450801,
+        "rougeL": 0.018306636155606407,
+        "bleu": 6.595953379893099e-232,
+        "length_ratio": 4.279411764705882,
+        "repetition_rate": 0.9448275862068966,
+        "sentiment": {
+          "positive_ratio": 0.207,
+          "negative_ratio": 0.019,
+          "neutral_ratio": 0.774,
+          "compound_score": 0.9927,
+          "textblob_score": -0.25
+        },
+        "sentiment_consistency": {
+          "kl_divergence": 0.008356195800341183,
+          "compound_score_diff": 0.007099999999999995,
+          "polarity_consistency": 1.0,
+          "original_sentiment": {
+            "positive_ratio": 0.197,
+            "negative_ratio": 0.039,
+            "neutral_ratio": 0.764,
+            "compound_score": 0.9998,
+            "textblob_score": 0.2093009023804478
+          },
+          "summary_sentiment": {
+            "positive_ratio": 0.207,
+            "negative_ratio": 0.019,
+            "neutral_ratio": 0.774,
+            "compound_score": 0.9927,
+            "textblob_score": -0.25
+          }
+        }
+      }
+    },
+    "bart": {
+      "basic": {
+        "rouge1": 0.22950819672131148,
+        "rougeL": 0.13114754098360656,
+        "bleu": 7.914753406240922e-232,
+        "length_ratio": 0.6911764705882353,
+        "repetition_rate": 0.043478260869565216,
+        "sentiment": {
+          "positive_ratio": 0.109,
+          "negative_ratio": 0.0,
+          "neutral_ratio": 0.891,
+          "compound_score": 0.6705,
+          "textblob_score": 0.058282051282051286
+        },
+        "sentiment_consistency": {
+          "kl_divergence": 0.7705948846841963,
+          "compound_score_diff": 0.32930000000000004,
+          "polarity_consistency": 1.0,
+          "original_sentiment": {
+            "positive_ratio": 0.197,
+            "negative_ratio": 0.039,
+            "neutral_ratio": 0.764,
+            "compound_score": 0.9998,
+            "textblob_score": 0.2093009023804478
+          },
+          "summary_sentiment": {
+            "positive_ratio": 0.109,
+            "negative_ratio": 0.0,
+            "neutral_ratio": 0.891,
+            "compound_score": 0.6705,
+            "textblob_score": 0.058282051282051286
+          }
+        }
+      },
+      "zero_shot": {
+        "rouge1": 0.30894308943089427,
+        "rougeL": 0.16260162601626016,
+        "bleu": 2.535630939740974e-155,
+        "length_ratio": 0.6470588235294118,
+        "repetition_rate": 0.023255813953488372,
+        "sentiment": {
+          "positive_ratio": 0.0,
+          "negative_ratio": 0.0,
+          "neutral_ratio": 1.0,
+          "compound_score": 0.0,
+          "textblob_score": 0.08461538461538462
+        },
+        "sentiment_consistency": {
+          "kl_divergence": 4.781881370167473,
+          "compound_score_diff": 0.9998,
+          "polarity_consistency": 1.0,
+          "original_sentiment": {
+            "positive_ratio": 0.197,
+            "negative_ratio": 0.039,
+            "neutral_ratio": 0.764,
+            "compound_score": 0.9998,
+            "textblob_score": 0.2093009023804478
+          },
+          "summary_sentiment": {
+            "positive_ratio": 0.0,
+            "negative_ratio": 0.0,
+            "neutral_ratio": 1.0,
+            "compound_score": 0.0,
+            "textblob_score": 0.08461538461538462
+          }
+        }
+      },
+      "few_shot": {
+        "rouge1": 0.27350427350427353,
+        "rougeL": 0.15384615384615385,
+        "bleu": 6.311802784353317e-232,
+        "length_ratio": 0.5735294117647058,
+        "repetition_rate": 0.0,
+        "sentiment": {
+          "positive_ratio": 0.146,
+          "negative_ratio": 0.0,
+          "neutral_ratio": 0.854,
+          "compound_score": 0.7438,
+          "textblob_score": 0.10576923076923078
+        },
+        "sentiment_consistency": {
+          "kl_divergence": 0.7454236235400264,
+          "compound_score_diff": 0.256,
+          "polarity_consistency": 1.0,
+          "original_sentiment": {
+            "positive_ratio": 0.197,
+            "negative_ratio": 0.039,
+            "neutral_ratio": 0.764,
+            "compound_score": 0.9998,
+            "textblob_score": 0.2093009023804478
+          },
+          "summary_sentiment": {
+            "positive_ratio": 0.146,
+            "negative_ratio": 0.0,
+            "neutral_ratio": 0.854,
+            "compound_score": 0.7438,
+            "textblob_score": 0.10576923076923078
+          }
+        }
+      },
+      "role_few_shot": {
+        "rouge1": 0.24793388429752064,
+        "rougeL": 0.14876033057851237,
+        "bleu": 7.244235983216522e-232,
+        "length_ratio": 0.6323529411764706,
+        "repetition_rate": 0.0,
+        "sentiment": {
+          "positive_ratio": 0.133,
+          "negative_ratio": 0.0,
+          "neutral_ratio": 0.867,
+          "compound_score": 0.7438,
+          "textblob_score": 0.10461538461538462
+        },
+        "sentiment_consistency": {
+          "kl_divergence": 0.7522530035510167,
+          "compound_score_diff": 0.256,
+          "polarity_consistency": 1.0,
+          "original_sentiment": {
+            "positive_ratio": 0.197,
+            "negative_ratio": 0.039,
+            "neutral_ratio": 0.764,
+            "compound_score": 0.9998,
+            "textblob_score": 0.2093009023804478
+          },
+          "summary_sentiment": {
+            "positive_ratio": 0.133,
+            "negative_ratio": 0.0,
+            "neutral_ratio": 0.867,
+            "compound_score": 0.7438,
+            "textblob_score": 0.10461538461538462
+          }
+        }
+      },
+      "role_zero_shot": {
+        "rouge1": 0.26548672566371684,
+        "rougeL": 0.1592920353982301,
+        "bleu": 1.988259752239043e-155,
+        "length_ratio": 0.5441176470588235,
+        "repetition_rate": 0.027777777777777776,
+        "sentiment": {
+          "positive_ratio": 0.0,
+          "negative_ratio": 0.0,
+          "neutral_ratio": 1.0,
+          "compound_score": 0.0,
+          "textblob_score": 0.23076923076923078
+        },
+        "sentiment_consistency": {
+          "kl_divergence": 4.781881370167473,
+          "compound_score_diff": 0.9998,
+          "polarity_consistency": 1.0,
+          "original_sentiment": {
+            "positive_ratio": 0.197,
+            "negative_ratio": 0.039,
+            "neutral_ratio": 0.764,
+            "compound_score": 0.9998,
+            "textblob_score": 0.2093009023804478
+          },
+          "summary_sentiment": {
+            "positive_ratio": 0.0,
+            "negative_ratio": 0.0,
+            "neutral_ratio": 1.0,
+            "compound_score": 0.0,
+            "textblob_score": 0.23076923076923078
+          }
+        }
+      },
+      "cot": {
+        "rouge1": 0.26548672566371684,
+        "rougeL": 0.1592920353982301,
+        "bleu": 1.988259752239043e-155,
+        "length_ratio": 0.5441176470588235,
+        "repetition_rate": 0.027777777777777776,
+        "sentiment": {
+          "positive_ratio": 0.0,
+          "negative_ratio": 0.0,
+          "neutral_ratio": 1.0,
+          "compound_score": 0.0,
+          "textblob_score": 0.23076923076923078
+        },
+        "sentiment_consistency": {
+          "kl_divergence": 4.781881370167473,
+          "compound_score_diff": 0.9998,
+          "polarity_consistency": 1.0,
+          "original_sentiment": {
+            "positive_ratio": 0.197,
+            "negative_ratio": 0.039,
+            "neutral_ratio": 0.764,
+            "compound_score": 0.9998,
+            "textblob_score": 0.2093009023804478
+          },
+          "summary_sentiment": {
+            "positive_ratio": 0.0,
+            "negative_ratio": 0.0,
+            "neutral_ratio": 1.0,
+            "compound_score": 0.0,
+            "textblob_score": 0.23076923076923078
+          }
+        }
+      },
+      "role_cot": {
+        "rouge1": 0.30894308943089427,
+        "rougeL": 0.16260162601626016,
+        "bleu": 2.535630939740974e-155,
+        "length_ratio": 0.6470588235294118,
+        "repetition_rate": 0.023255813953488372,
+        "sentiment": {
+          "positive_ratio": 0.0,
+          "negative_ratio": 0.0,
+          "neutral_ratio": 1.0,
+          "compound_score": 0.0,
+          "textblob_score": 0.08461538461538462
+        },
+        "sentiment_consistency": {
+          "kl_divergence": 4.781881370167473,
+          "compound_score_diff": 0.9998,
+          "polarity_consistency": 1.0,
+          "original_sentiment": {
+            "positive_ratio": 0.197,
+            "negative_ratio": 0.039,
+            "neutral_ratio": 0.764,
+            "compound_score": 0.9998,
+            "textblob_score": 0.2093009023804478
+          },
+          "summary_sentiment": {
+            "positive_ratio": 0.0,
+            "negative_ratio": 0.0,
+            "neutral_ratio": 1.0,
+            "compound_score": 0.0,
+            "textblob_score": 0.08461538461538462
+          }
+        }
+      }
+    }
+  }
+}
