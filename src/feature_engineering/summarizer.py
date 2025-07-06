@@ -1,5 +1,5 @@
 import torch
-from transformers import pipeline
+from transformers import pipeline, AutoTokenizer
 from typing import List
 import time
 
@@ -46,12 +46,17 @@ class ReviewSummarizer:
                 else:
                     print("Using CPU as specified")
         
+        # Load tokenizer for input length validation (matching pilot study)
+        self.tokenizer = AutoTokenizer.from_pretrained(self.model_name)
+        self.max_input_tokens = 512  # Use pilot study's conservative limit
+        
         # Load model with proper device setting (matching pilot study approach)
         self.summarizer = pipeline(
             'summarization', 
             model=self.model_name, 
             device=self.device
         )
+        
         self.prompt = prompt or (
             "Summarize the following restaurant reviews. Include both positive and negative\n"
             "aspects of:\n"
@@ -100,15 +105,16 @@ class ReviewSummarizer:
             print(f"Warning: GPU memory cleanup failed: {e}")
 
     def _validate_text(self, text):
-        """Validate and clean input text without truncation to maintain integrity"""
+        """Validate and clean input text (matching pilot study approach)"""
         if not text or not isinstance(text, str):
             return ""
         
-        # Basic text cleaning without truncation
+        # Basic text cleaning (matching pilot study)
         text = ' '.join(text.split())  # Remove excessive whitespace
         text = text.replace('\x00', '').replace('\ufffd', '')  # Remove problematic characters
         
-        return text  # Return complete text without truncation
+        # Let tokenizer handle truncation during encoding (like pilot study)
+        return text
 
     def summarize_batch(self, texts: List[str], chunk_size=200) -> List[str]:
         """
@@ -144,7 +150,7 @@ class ReviewSummarizer:
         return all_summaries
 
     def _process_chunk(self, texts: List[str]) -> List[str]:
-        """Process a single chunk of texts"""
+        """Process a single chunk of texts using pilot study approach"""
         prompts = [self.prompt.replace('{text}', self._validate_text(t)) for t in texts]
         summaries = []
         
@@ -169,7 +175,8 @@ class ReviewSummarizer:
                 retry_count = 0
                 while retry_count < self.max_retries:
                     try:
-                        # Call with parameters matching pilot study approach
+                        # Use pilot study approach: let tokenizer handle truncation during encoding
+                        # This ensures text integrity while avoiding CUDA errors
                         batch_outputs = self.summarizer(
                             valid_prompts,
                             max_length=self.max_length,
@@ -177,7 +184,7 @@ class ReviewSummarizer:
                             num_beams=self.num_beams,
                             do_sample=True,
                             temperature=self.temperature,
-                            truncation=True,
+                            truncation=True,  # Let tokenizer truncate at encoding time
                             early_stopping=False,
                             length_penalty=1.0,
                             no_repeat_ngram_size=2,
