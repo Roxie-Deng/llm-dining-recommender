@@ -46,23 +46,11 @@ class ReviewSummarizer:
                 else:
                     print("Using CPU as specified")
         
-        # Load model with proper device setting and parameters
+        # Load model with proper device setting (without model_kwargs to avoid warnings)
         self.summarizer = pipeline(
             'summarization', 
             model=self.model_name, 
-            device=self.device,
-            model_kwargs={
-                'max_length': self.max_length,
-                'min_length': self.min_length,
-                'num_beams': self.num_beams,
-                'temperature': self.temperature,
-                'do_sample': True,
-                'early_stopping': False,
-                'length_penalty': 1.0,
-                'no_repeat_ngram_size': 2,
-                'repetition_penalty': 1.0,
-                'remove_invalid_values': True
-            }
+            device=self.device
         )
         self.prompt = prompt or (
             "Summarize the following restaurant reviews. Include both positive and negative\n"
@@ -187,12 +175,19 @@ class ReviewSummarizer:
                 retry_count = 0
                 while retry_count < self.max_retries:
                     try:
-                        # Simplified call with only essential parameters to avoid warnings
+                        # Call with all necessary parameters to avoid warnings
                         batch_outputs = self.summarizer(
                             valid_prompts,
-                            truncation=True,
                             max_length=self.max_length,
-                            min_length=self.min_length
+                            min_length=self.min_length,
+                            num_beams=self.num_beams,
+                            do_sample=True,
+                            temperature=self.temperature,
+                            truncation=True,
+                            early_stopping=False,
+                            length_penalty=1.0,
+                            no_repeat_ngram_size=2,
+                            repetition_penalty=1.0
                         )
                         
                         # Reconstruct full batch with empty summaries for invalid texts

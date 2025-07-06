@@ -184,11 +184,11 @@ model:
 summarization:
   model: "facebook/bart-large-cnn"
   device: "cuda"     # Use CUDA for GPU acceleration
-  batch_size: 1      # Very small batch to avoid memory issues
-  max_length: 128    # Increased max length for better summaries
-  min_length: 20     # Increased min length for better summaries
-  num_beams: 1       # No beam search (faster and more stable)
-  temperature: 0.5   # Slightly higher temperature for better quality
+  batch_size: 1      # Small batch to avoid memory issues
+  max_length: 512    # Maximum length for comprehensive summaries
+  min_length: 50     # Minimum length for detailed summaries
+  num_beams: 4       # Use beam search for better quality
+  temperature: 0.7   # Higher temperature for more creative summaries
   prompt: |
     Summarize the following restaurant reviews. Include both positive and negative
     aspects of:

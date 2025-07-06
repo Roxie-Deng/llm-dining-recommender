@@ -59,16 +59,16 @@ class FeatureEngineeringPipelineWithReviewSummary:
         print(f"Total texts to process: {len(df['review_tip'].fillna('').tolist())}")
 
         print("\nStep 2: Summarize review_tip...")
-        # Read parameters from config file correctly, use conservative settings
+        # Read parameters from config file with aggressive settings
         summarizer = ReviewSummarizer(
             model_name=self.summarizer_cfg.get('model', 'facebook/bart-large-cnn'),
-            device=self.summarizer_cfg.get('device', 'cuda'),  # Default to CUDA for GPU acceleration
+            device=self.summarizer_cfg.get('device', 'cuda'),  # Use CUDA for GPU acceleration
             prompt=self.summarizer_cfg.get('prompt'),
-            max_length=self.summarizer_cfg.get('max_length', 128),  # Increased max_length
-            min_length=self.summarizer_cfg.get('min_length', 20),  # Increased min_length
-            num_beams=self.summarizer_cfg.get('num_beams', 1),  # Use 1 to avoid beam search issues
-            temperature=self.summarizer_cfg.get('temperature', 0.5),  # Better temperature
-            batch_size=self.summarizer_cfg.get('batch_size', 1)  # Use 1 to avoid memory issues
+            max_length=self.summarizer_cfg.get('max_length', 512),  # Aggressive max_length
+            min_length=self.summarizer_cfg.get('min_length', 50),  # Aggressive min_length
+            num_beams=self.summarizer_cfg.get('num_beams', 4),  # Use beam search for quality
+            temperature=self.summarizer_cfg.get('temperature', 0.7),  # Higher temperature for creativity
+            batch_size=self.summarizer_cfg.get('batch_size', 1)  # Small batch for memory management
         )
         
         print(f"Summarizer parameters:")
