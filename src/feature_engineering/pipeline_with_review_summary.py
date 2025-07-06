@@ -23,7 +23,7 @@ class FeatureEngineeringPipelineWithReviewSummary:
         print("Step 2: Summarize review_tip...")
         summarizer = ReviewSummarizer(
             model_name=self.summarizer_cfg.get('model', 'facebook/bart-large-cnn'),
-            device=self.summarizer_cfg.get('device', 'cpu'),
+            device=self.summarizer_cfg.get('device', 'cuda'),  # Default to CUDA for GPU acceleration
             prompt=self.summarizer_cfg.get('prompt'),
             max_length=self.summarizer_cfg.get('max_length', 64),
             min_length=self.summarizer_cfg.get('min_length', 10),
