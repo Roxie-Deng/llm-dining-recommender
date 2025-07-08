@@ -47,7 +47,6 @@ def run(businesses, config, refined_categories: set, exclude_categories: set):
         # Create simplified entry with essential fields
         simplified_entry = {
             "business_id": business["business_id"],
-            "name": business.get("name"),
             "cluster": main_cluster,
             "categories": ", ".join(sorted(cleaned_cats_set)),
             "stars": business["stars"],
@@ -55,7 +54,8 @@ def run(businesses, config, refined_categories: set, exclude_categories: set):
             "RestaurantsPriceRange2": attributes.get("RestaurantsPriceRange2"),
             "OutdoorSeating": attributes.get("OutdoorSeating"),
             "Ambience": attributes.get("Ambience"),
-            "RestaurantsReservations": attributes.get("RestaurantsReservations")
+            "RestaurantsReservations": attributes.get("RestaurantsReservations"),
+            "name": business.get("name")
         }
         
         return simplified_entry

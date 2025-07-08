@@ -158,7 +158,9 @@ feature_engineering:
       business_embeddings_with_summary_metadata: "data/engineered/with_summary/business_embeddings_with_summary_metadata.json"
   vectorizer:
     with_review:
-      feature_columns: ["stars", "review_count", "normalized_price", "category_cluster", "OutdoorSeating", "RestaurantsReservations"]
+      feature_columns: ["normalized_price", "OutdoorSeating", "RestaurantsReservations"]
+    without_review:
+      feature_columns: ["normalized_price", "OutdoorSeating", "RestaurantsReservations"]
       text_columns: ["review_tip", "description", "categories"]
       review_tip_vectorizer: "paraphrase-minilm"
       review_tip_bert_model: "paraphrase-MiniLM-L6-v2"

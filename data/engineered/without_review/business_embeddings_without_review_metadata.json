@@ -998,13 +998,18 @@
   ],
   "feature_names": [
     "description_embedding",
-    "category_cluster_encoded",
-    "Ambience_encoded",
     "OutdoorSeating_binary",
     "RestaurantsReservations_binary",
-    "stars_normalized",
-    "review_count_normalized",
     "normalized_price_normalized",
-    "categories_tfidf"
+    "categories_tfidf",
+    "category_cluster_1",
+    "category_cluster_2",
+    "category_cluster_3",
+    "category_cluster_4",
+    "category_cluster_5",
+    "category_cluster_6",
+    "category_cluster_7",
+    "category_cluster_8",
+    "category_cluster_9"
   ]
 }

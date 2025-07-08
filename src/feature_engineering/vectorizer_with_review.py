@@ -37,13 +37,14 @@ def segment_encode(text, model, max_tokens=400, pool_method='mean'):
         raise ValueError(f"Unknown pool_method: {pool_method}")
     return pooled
 
-def create_business_embeddings_with_review(df, config_path="configs/data_config.yaml", output_dir=None):
+def create_business_embeddings_with_review(df, config_path="configs/data_config.yaml", output_dir=None, output_path=None):
     """
     Create business embeddings with review_tip, description, and categories text fields.
     Args:
         df (DataFrame): DataFrame with business features and text fields
         config_path (str or dict): Path to config file or config dict
         output_dir (str, optional): Directory to save outputs
+        output_path (str, optional): File prefix for output files (embeddings, metadata)
     Returns:
         tuple: (embeddings, business_ids, feature_names)
     """
@@ -54,15 +55,31 @@ def create_business_embeddings_with_review(df, config_path="configs/data_config.
             config = yaml.safe_load(f)
     else:
         config = config_path
-    if output_dir is None:
-        output_dir = config['paths']['features_output']['with_review']
-    Path(output_dir).mkdir(parents=True, exist_ok=True)
+    
+    # Determine output paths
+    if output_path is not None:
+        embeddings_path = output_path + "_embeddings.npy"
+        metadata_path = output_path + "_metadata.json"
+        # 确保目录存在
+        Path(Path(output_path).parent).mkdir(parents=True, exist_ok=True)
+    else:
+        if output_dir is None:
+            output_dir = config['paths']['features_output']['with_review']
+        Path(output_dir).mkdir(parents=True, exist_ok=True)
+        embeddings_path = config['feature_engineering']['output']['with_review']['business_embeddings_with_text']
+        metadata_path = config['feature_engineering']['output']['with_review']['business_embeddings_with_text_metadata']
 
     # Structured features
     feature_columns = config['feature_engineering']['vectorizer']['with_review']['feature_columns']
     business_ids = df['business_id'].tolist()
     X_structured = df[feature_columns].values.astype(float)
     feature_names = list(feature_columns)
+
+    # One-hot encode category_cluster and concatenate
+    if 'category_cluster' in df.columns:
+        one_hot = pd.get_dummies(df['category_cluster'], prefix='category_cluster')
+        X_structured = np.hstack([X_structured, one_hot.values])
+        feature_names += list(one_hot.columns)
 
     # Text fields
     text_columns = config['feature_engineering']['vectorizer']['with_review'].get('text_columns', ['review_tip', 'description', 'categories'])
@@ -137,8 +154,6 @@ def create_business_embeddings_with_review(df, config_path="configs/data_config.
     embeddings = np.concatenate(all_vectors, axis=1)
 
     # Save embeddings and metadata
-    embeddings_path = config['feature_engineering']['output']['with_review']['business_embeddings_with_text']
-    metadata_path = config['feature_engineering']['output']['with_review']['business_embeddings_with_text_metadata']
     np.save(embeddings_path, embeddings)
     metadata = {
         "business_ids": business_ids,
@@ -154,13 +169,14 @@ def create_business_embeddings_with_review(df, config_path="configs/data_config.
     print(f"Saved metadata to {metadata_path}")
     return embeddings, business_ids, all_feature_names
 
-def create_business_embeddings_with_summary(df, config_path="configs/data_config.yaml", output_dir=None):
+def create_business_embeddings_with_summary(df, config_path="configs/data_config.yaml", output_dir=None, output_path=None):
     """
     Create business embeddings with review_tip, description, categories, and review_tip_summary text fields.
     Args:
         df (DataFrame): DataFrame with business features and text fields including summary
         config_path (str or dict): Path to config file or config dict
         output_dir (str, optional): Directory to save outputs
+        output_path (str, optional): File prefix for output files (embeddings, metadata)
     Returns:
         tuple: (embeddings, business_ids, feature_names)
     """
@@ -171,15 +187,32 @@ def create_business_embeddings_with_summary(df, config_path="configs/data_config
             config = yaml.safe_load(f)
     else:
         config = config_path
-    if output_dir is None:
-        output_dir = config['paths']['features_output']['with_review']
-    Path(output_dir).mkdir(parents=True, exist_ok=True)
+    
+    # Determine output paths
+    if output_path is not None:
+        embeddings_path = output_path + "_embeddings.npy"
+        metadata_path = output_path + "_metadata.json"
+        from pathlib import Path
+        Path(Path(output_path).parent).mkdir(parents=True, exist_ok=True)
+    else:
+        if output_dir is None:
+            output_dir = config['paths']['features_output']['with_review']
+        from pathlib import Path
+        Path(output_dir).mkdir(parents=True, exist_ok=True)
+        embeddings_path = config['feature_engineering']['output']['with_summary']['business_embeddings_with_summary']
+        metadata_path = config['feature_engineering']['output']['with_summary']['business_embeddings_with_summary_metadata']
 
     # Structured features
     feature_columns = config['feature_engineering']['vectorizer']['with_review']['feature_columns']
     business_ids = df['business_id'].tolist()
     X_structured = df[feature_columns].values.astype(float)
     feature_names = list(feature_columns)
+
+    # One-hot encode category_cluster and concatenate
+    if 'category_cluster' in df.columns:
+        one_hot = pd.get_dummies(df['category_cluster'], prefix='category_cluster')
+        X_structured = np.hstack([X_structured, one_hot.values])
+        feature_names += list(one_hot.columns)
 
     # Text fields - now including review_tip_summary
     text_columns = config['feature_engineering']['vectorizer']['with_review'].get('text_columns', ['review_tip', 'description', 'categories']) + ['review_tip_summary']
@@ -265,13 +298,6 @@ def create_business_embeddings_with_summary(df, config_path="configs/data_config
     embeddings = np.concatenate(all_vectors, axis=1)
 
     # Save embeddings and metadata
-    embeddings_path = config['feature_engineering']['output']['with_summary']['business_embeddings_with_summary']
-    metadata_path = config['feature_engineering']['output']['with_summary']['business_embeddings_with_summary_metadata']
-    
-    # Ensure output directory exists
-    import os
-    os.makedirs(os.path.dirname(embeddings_path), exist_ok=True)
-    
     np.save(embeddings_path, embeddings)
     metadata = {
         "business_ids": business_ids,

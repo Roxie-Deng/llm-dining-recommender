@@ -41,10 +41,10 @@ class ReviewSummarizer:
                     print(f"Unknown device '{device}', using CPU")
             else:
                 self.device = "cuda" if device == 0 else "cpu"
-                if device == 0:
-                    print("Using GPU as specified")
-                else:
-                    print("Using CPU as specified")
+            if device == 0:
+                print("Using GPU as specified")
+            else:
+                print("Using CPU as specified")
         
         # Load model and tokenizer directly (matching pilot study approach)
         print(f"Loading model: {self.model_name}")
@@ -114,7 +114,7 @@ class ReviewSummarizer:
 
     def _generate_summary(self, text: str) -> str:
         """Generate summary for a single text (matching pilot study approach)"""
-        try:
+                try:
             # Prepare input with truncation at tokenizer level (like pilot study)
             inputs = self.tokenizer(text, return_tensors="pt", truncation=True, max_length=512)
             inputs = inputs.to(self.device)
@@ -122,11 +122,11 @@ class ReviewSummarizer:
             # Generate summary
             outputs = self.model.generate(
                 **inputs,
-                max_length=self.max_length,
-                min_length=self.min_length,
-                num_beams=self.num_beams,
+                        max_length=self.max_length,
+                        min_length=self.min_length,
+                        num_beams=self.num_beams,
                 do_sample=True,
-                temperature=self.temperature,
+                        temperature=self.temperature,
                 early_stopping=False,
                 length_penalty=1.0,
                 no_repeat_ngram_size=2,
@@ -192,7 +192,7 @@ class ReviewSummarizer:
                         self.error_count = 0
                         break
                         
-                    except Exception as e:
+                except Exception as e:
                         retry_count += 1
                         self.error_count += 1
                         

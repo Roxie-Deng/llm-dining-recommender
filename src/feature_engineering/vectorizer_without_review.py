@@ -81,44 +81,17 @@ class VectorizerWithoutReview:
             
         return text_embeddings
     
-    def encode_categorical_features(self, df, categorical_columns=['category_cluster', 'Ambience']):
+    def encode_categorical_features(self, df, categorical_columns=[]):
         """
         Encode categorical features using label encoding
-        
         Args:
             df (DataFrame): DataFrame with categorical columns
             categorical_columns (list): List of categorical column names to encode
-            
         Returns:
             dict: Dictionary with encoded categorical features
         """
-        categorical_embeddings = {}
-        
-        for column in categorical_columns:
-            if column not in df.columns:
-                print(f"Warning: Column '{column}' not found in DataFrame")
-                continue
-                
-            print(f"Encoding categorical column: {column}")
-            
-            # Create label encoder if not exists
-            if column not in self.label_encoders:
-                self.label_encoders[column] = LabelEncoder()
-                
-                # Fit on all unique values (including NaN)
-                unique_values = df[column].dropna().unique()
-                self.label_encoders[column].fit(unique_values)
-            
-            # Encode values
-            encoded_values = df[column].map(
-                lambda x: self.label_encoders[column].transform([x])[0] 
-                if pd.notna(x) and x in self.label_encoders[column].classes_ 
-                else -1
-            ).values
-            
-            categorical_embeddings[f"{column}_encoded"] = encoded_values
-            
-        return categorical_embeddings
+        # No categorical columns for current workflow
+        return {}
     
     def encode_boolean_features(self, df, boolean_columns=['OutdoorSeating', 'RestaurantsReservations']):
         """
@@ -146,7 +119,7 @@ class VectorizerWithoutReview:
             
         return boolean_embeddings
     
-    def normalize_numerical_features(self, df, numerical_columns=['stars', 'review_count', 'normalized_price']):
+    def normalize_numerical_features(self, df, numerical_columns=['normalized_price']):
         """
         Normalize numerical features using StandardScaler
         
@@ -245,35 +218,26 @@ class VectorizerWithoutReview:
     def vectorize_businesses(self, df):
         """
         Main vectorization pipeline for business data without reviews
-        
         Args:
             df (DataFrame): DataFrame with extracted features
-            
         Returns:
             tuple: (feature_matrix, feature_names, business_ids)
         """
         print("Starting business vectorization (without reviews)...")
-        
         # Step 1: Encode text features (only description, no review_tip)
         print("Step 1: Encoding text features...")
         text_features = self.encode_text_features(df, text_columns=['description'])
-        
-        # Step 2: Encode categorical features
-        print("Step 2: Encoding categorical features...")
-        categorical_features = self.encode_categorical_features(df)
-        
+        # Step 2: No categorical features for current workflow
+        categorical_features = {}
         # Step 3: Encode boolean features
         print("Step 3: Encoding boolean features...")
         boolean_features = self.encode_boolean_features(df)
-        
         # Step 4: Normalize numerical features
         print("Step 4: Normalizing numerical features...")
-        numerical_features = self.normalize_numerical_features(df)
-        
+        numerical_features = self.normalize_numerical_features(df, numerical_columns=['normalized_price'])
         # Step 5: Create TF-IDF features
         print("Step 5: Creating TF-IDF features...")
         tfidf_features = self.create_tfidf_features(df)
-        
         # Step 6: Combine all features
         print("Step 6: Combining features...")
         all_feature_dicts = [
@@ -283,19 +247,20 @@ class VectorizerWithoutReview:
             numerical_features,
             tfidf_features
         ]
-        
         feature_matrix, feature_names = self.combine_features(all_feature_dicts)
-        
+        # One-hot encode category_cluster and concatenate
+        if 'category_cluster' in df.columns:
+            one_hot = pd.get_dummies(df['category_cluster'], prefix='category_cluster')
+            feature_matrix = np.hstack([feature_matrix, one_hot.values])
+            feature_names += list(one_hot.columns)
         # Get business IDs robustly
         if 'business_id' in df.columns:
             business_ids = df['business_id'].tolist()
         else:
             print("Warning: 'business_id' column not found in input data. Using index as IDs.")
             business_ids = list(df.index)
-        
         print(f"Vectorization complete! Feature matrix shape: {feature_matrix.shape}")
         print(f"Number of features: {len(feature_names)}")
-        
         return feature_matrix, feature_names, business_ids
     
     def save_vectorizer(self, output_path):
