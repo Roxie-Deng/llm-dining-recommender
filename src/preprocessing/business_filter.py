@@ -85,9 +85,9 @@ class BusinessFilter:
             print(f"Using refined categories: {len(dining_categories)} categories")
         else:
             # Fall back to original dining categories
-        with open(self.config['paths']['processed']['categories']['dining'], 'r', encoding='utf-8') as f:
-            dining_categories = set(json.load(f))
-            print(f"Using original dining categories: {len(dining_categories)} categories")
+            with open(self.config['paths']['processed']['categories']['dining'], 'r', encoding='utf-8') as f:
+                dining_categories = set(json.load(f))
+                print(f"Using original dining categories: {len(dining_categories)} categories")
         
         dining_businesses = []
         total_records = 0

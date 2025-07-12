@@ -1,0 +1,12 @@
+{
+  "similarity_score": {
+    "mean": 0.7123861471136484,
+    "min": 0.3808605412583241,
+    "max": 0.889776707365934,
+    "median": 0.7167507033026539
+  },
+  "cluster_match_rate": 0.8619095477386934,
+  "avg_cluster_distance": 0.41628140703517585,
+  "avg_price_difference": 0.0,
+  "avg_category_overlap": 0.37631676078984605
+}
