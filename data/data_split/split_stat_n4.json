@@ -1,0 +1,10 @@
+{
+  "n": 4,
+  "num_active_users": 4698,
+  "num_inactive_users": 67859,
+  "num_active_interactions": 37899,
+  "num_inactive_interactions": 85941,
+  "total_interactions": 123840,
+  "num_train_interactions": 119142,
+  "num_test_interactions": 4698
+}

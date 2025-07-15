@@ -19,14 +19,17 @@ def extract_commented_users(sampled_business_path, review_path, commented_users_
 
     # 2. Count user comments on sampled businesses
     user_business = defaultdict(set)  # user_id -> set of business_id
+    user_business_detail = defaultdict(list)  # user_id -> list of (business_id, date)
 
     with open(review_path, 'r', encoding='utf-8') as f:
         for line in f:
             review = json.loads(line)
             business_id = review.get('business_id')
             user_id = review.get('user_id')
+            date = review.get('date')
             if business_id in sampled_business_ids:
                 user_business[user_id].add(business_id)
+                user_business_detail[user_id].append((business_id, date))
 
     # 3. Output commented user statistics
     with open(commented_users_path, 'w', encoding='utf-8') as f:
@@ -34,13 +37,13 @@ def extract_commented_users(sampled_business_path, review_path, commented_users_
         for user_id, businesses in user_business.items():
             f.write(f'{user_id},{len(businesses)}\n')
 
-    # 4. Optional: Output user-business interaction details
+    # 4. Optional: Output user-business interaction details with date
     if user_business_map_path:
         with open(user_business_map_path, 'w', encoding='utf-8') as f:
-            f.write('user_id,business_id\n')
-            for user_id, businesses in user_business.items():
-                for business_id in businesses:
-                    f.write(f'{user_id},{business_id}\n')
+            f.write('user_id,business_id,date\n')
+            for user_id, business_date_list in user_business_detail.items():
+                for business_id, date in business_date_list:
+                    f.write(f'{user_id},{business_id},{date}\n')
 
 
 def main():

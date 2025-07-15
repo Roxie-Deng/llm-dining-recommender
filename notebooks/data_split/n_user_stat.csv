@@ -1,0 +1,4 @@
+﻿n,num_active_users,num_inactive_users,num_active_interactions,num_inactive_interactions,total_interactions,num_train_interactions,num_test_interactions
+3,7989,64568,48136,75704,123840,115851,7989
+4,4698,67859,37899,85941,123840,119142,4698
+5,3167,69390,31487,92353,123840,120673,3167
