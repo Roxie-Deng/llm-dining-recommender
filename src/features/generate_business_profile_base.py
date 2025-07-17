@@ -40,10 +40,19 @@ def process_ambience(val):
     return ''
 
 def aggregate_reviews(reviews_df, business_id, n=10):
+    """
+    Aggregate the latest n reviews for a business as a list of review texts.
+    Args:
+        reviews_df: DataFrame containing all reviews.
+        business_id: The business id to filter reviews.
+        n: Number of latest reviews to aggregate (default: 10).
+    Returns:
+        List of review texts (str) for the business, sorted by date (latest n).
+    """
     reviews = reviews_df[reviews_df['business_id'] == business_id]
     reviews = reviews.sort_values('date')
     texts = reviews['text'].fillna('').tolist()[-n:]
-    return ' '.join(texts)
+    return texts  # Return as list instead of concatenated string
 
 def generate_description(row):
     name = row.get('name', '')
@@ -134,14 +143,14 @@ def main():
     # Only keep reviews for businesses in train set
     reviews_df = reviews_df[reviews_df['business_id'].isin(train_business_ids)]
 
-    # 聚合review和生成description
+    # Aggregate reviews and generate description for each business
     agg_reviews = []
     descriptions = []
     for idx, row in business_df.iterrows():
         business_id = row['business_id']
-        agg_reviews.append(aggregate_reviews(reviews_df, business_id, n=args.review_top_n))
+        agg_reviews.append(aggregate_reviews(reviews_df, business_id, n=args.review_top_n))  # List of review texts
         descriptions.append(generate_description(row))
-    business_df['review'] = agg_reviews
+    business_df['review'] = agg_reviews  # Store as list of reviews
     business_df['description'] = descriptions
 
     # 输出列

@@ -1,103 +1,214 @@
-import argparse
-import pandas as pd
-from tqdm import tqdm
 import torch
-from transformers import AutoTokenizer, AutoModelForSeq2SeqLM
-import yaml
+from transformers import AutoModelForSeq2SeqLM, AutoTokenizer
+from typing import List
+import time
 
-"""
-This script generates business-level summaries using an LLM (e.g., BART, T5, etc.).
-- The prompt template is read from the config file (summarization.prompt), and can be overridden by command line argument.
-- All other parameters (model, device, max_length, etc.) are also configurable via config or CLI.
-- Input: a CSV with a text column (e.g., review), Output: a CSV with an added summary column.
-"""
-
-def load_config(config_path):
-    """Load YAML config file."""
-    with open(config_path, 'r', encoding='utf-8') as f:
-        return yaml.safe_load(f)
-
-def get_device(device_str=None):
-    """Determine device (cuda/cpu) based on user input and availability."""
-    if device_str:
-        if device_str.lower() == 'cuda' and torch.cuda.is_available():
-            return 'cuda'
+class ReviewSummarizer:
+    def __init__(self, model_name='facebook/bart-large-cnn', device=None, prompt=None, 
+                 max_length=512, min_length=50, num_beams=4, temperature=0.7, batch_size=8):
+        self.model_name = model_name
+        
+        # Set attributes first before using them in pipeline initialization
+        self.max_length = max_length
+        self.min_length = min_length
+        self.num_beams = num_beams
+        self.temperature = temperature
+        self.batch_size = batch_size
+        
+        # Improved device setting logic
+        if device is None:
+            if torch.cuda.is_available():
+                self.device = "cuda"
+                print("CUDA available, using GPU")
+            else:
+                self.device = "cpu"
+                print("CUDA not available, using CPU")
         else:
-            return 'cpu'
-    return 'cuda' if torch.cuda.is_available() else 'cpu'
-
-def main():
-    parser = argparse.ArgumentParser(description='Generate business summaries with LLM (for V4 profile).')
-    parser.add_argument('--input_path', type=str, required=True, help='Input CSV (e.g., business_profile_base.csv)')
-    parser.add_argument('--output_path', type=str, required=True, help='Output CSV (with summary column)')
-    parser.add_argument('--config', type=str, default='configs/data_config.yaml', help='Config YAML path')
-    parser.add_argument('--text_col', type=str, default='review', help='Column to summarize (default: review)')
-    parser.add_argument('--summary_col', type=str, default='summary', help='Output summary column name')
-    parser.add_argument('--model', type=str, default=None, help='LLM model name (overrides config)')
-    parser.add_argument('--device', type=str, default=None, help='Device (cpu/cuda, overrides config)')
-    parser.add_argument('--prompt', type=str, default=None, help='Prompt template (overrides config)')
-    parser.add_argument('--max_length', type=int, default=None, help='Max summary length')
-    parser.add_argument('--min_length', type=int, default=None, help='Min summary length')
-    parser.add_argument('--num_beams', type=int, default=None, help='Beam search width')
-    parser.add_argument('--temperature', type=float, default=None, help='Sampling temperature')
-    parser.add_argument('--batch_size', type=int, default=None, help='Batch size')
-    args = parser.parse_args()
-
-    # Load config
-    config = load_config(args.config)
-    summarizer_cfg = config.get('summarization', {})
-
-    # Priority: CLI > config > default
-    model_name = args.model or summarizer_cfg.get('model', 'facebook/bart-large-cnn')
-    device = get_device(args.device or summarizer_cfg.get('device', None))
-    prompt = args.prompt or summarizer_cfg.get('prompt', None)
-    max_length = args.max_length or summarizer_cfg.get('max_length', 512)
-    min_length = args.min_length or summarizer_cfg.get('min_length', 50)
-    num_beams = args.num_beams or summarizer_cfg.get('num_beams', 4)
-    temperature = args.temperature or summarizer_cfg.get('temperature', 0.7)
-    batch_size = args.batch_size or summarizer_cfg.get('batch_size', 1)
-
-    print(f"Model: {model_name}, Device: {device}, Batch size: {batch_size}")
-    if prompt:
-        print(f"Prompt (first 80 chars): {prompt[:80]} ...")
-    else:
-        print("Prompt: [default, plain text]")
-
-    # Load model and tokenizer
-    tokenizer = AutoTokenizer.from_pretrained(model_name)
-    model = AutoModelForSeq2SeqLM.from_pretrained(model_name).to(device)
-    model.eval()
-
-    # Read input data
-    df = pd.read_csv(args.input_path)
-    texts = df[args.text_col].fillna("").tolist()
-    summaries = []
-
-    for text in tqdm(texts, desc='Generating summary'):
-        # Build prompt
-        if prompt:
-            input_text = prompt.replace('{text}', text)
+            # Handle string device parameters
+            if isinstance(device, str):
+                if device.lower() == 'cpu':
+                    self.device = "cpu"
+                    print("Using CPU as specified")
+                elif device.lower() == 'cuda':
+                    if torch.cuda.is_available():
+                        self.device = "cuda"
+                        print("Using GPU as specified")
+                    else:
+                        self.device = "cpu"
+                        print("CUDA requested but not available, falling back to CPU")
+                else:
+                    self.device = "cpu"
+                    print(f"Unknown device '{device}', using CPU")
+            else:
+                self.device = "cuda" if device == 0 else "cpu"
+            if device == 0:
+                print("Using GPU as specified")
+            else:
+                print("Using CPU as specified")
+        
+        # Load model and tokenizer directly (matching pilot study approach)
+        print(f"Loading model: {self.model_name}")
+        self.tokenizer = AutoTokenizer.from_pretrained(self.model_name)
+        self.model = AutoModelForSeq2SeqLM.from_pretrained(self.model_name)
+        self.model.to(self.device)
+        print(f"Model loaded on device: {self.device}")
+        
+        self.prompt = prompt or (
+            "Summarize the following restaurant reviews. Include both positive and negative\n"
+            "aspects of:\n"
+            "• Food quality and taste\n"
+            "• Service experience\n"
+            "• Price and value\n"
+            "• Overall impression\n"
+            "Keep the summary factual and balanced.\n"
+            "{text}"
+        )
+        
+        # Enhanced GPU memory management
+        self.error_count = 0
+        self.max_retries = 3
+        
+        # Record initial memory usage for baseline
+        if torch.cuda.is_available():
+            self.initial_memory = torch.cuda.memory_allocated() / 1024**2  # MB
+            print(f"Model loaded. Initial GPU memory: {self.initial_memory:.1f} MB")
         else:
-            input_text = text
-        # Tokenize
-        inputs = tokenizer([input_text], max_length=1024, truncation=True, return_tensors='pt')
-        inputs = {k: v.to(device) for k, v in inputs.items()}
-        # Generate summary
-        with torch.no_grad():
-            summary_ids = model.generate(
-                inputs['input_ids'],
-                num_beams=num_beams,
-                max_length=max_length,
-                min_length=min_length,
-                temperature=temperature,
-                early_stopping=True
+            self.initial_memory = 0
+
+    def _clean_gpu_memory(self, force=False):
+        """Intelligent GPU memory cleanup with baseline tracking"""
+        if not torch.cuda.is_available():
+            return
+            
+        try:
+            memory_used = torch.cuda.memory_allocated() / 1024**2  # MB
+            memory_threshold = 2000  # 2GB threshold (increased from 1GB)
+            
+            # Only clean if memory usage is significantly above baseline
+            baseline_threshold = self.initial_memory + 500  # 500MB above baseline
+            
+            if force or (memory_used > memory_threshold and memory_used > baseline_threshold):
+                print(f"Cleaning GPU memory (used: {memory_used:.1f} MB, baseline: {self.initial_memory:.1f} MB)")
+                torch.cuda.empty_cache()
+                torch.cuda.synchronize()  # Wait for all CUDA operations
+                time.sleep(0.1)  # Small delay to ensure cleanup
+                
+                # Verify cleanup
+                memory_after = torch.cuda.memory_allocated() / 1024**2
+                print(f"GPU memory after cleanup: {memory_after:.1f} MB")
+                
+        except Exception as e:
+            print(f"Warning: GPU memory cleanup failed: {e}")
+
+    def _validate_text(self, text):
+        """Validate and clean input text (matching pilot study approach). If input is a list, join to string."""
+        if isinstance(text, list):
+            text = ' '.join([str(t) for t in text])
+        if not text or not isinstance(text, str):
+            return ""
+        # Basic text cleaning (matching pilot study)
+        text = ' '.join(text.split())  # Remove excessive whitespace
+        text = text.replace('\x00', '').replace('\ufffd', '')  # Remove problematic characters
+        # Let tokenizer handle truncation during encoding (like pilot study)
+        return text
+
+    def _generate_summary(self, text: str) -> str:
+        """Generate summary for a single text (matching pilot study approach)"""
+        try:
+            # Prepare input with truncation at tokenizer level (like pilot study)
+            inputs = self.tokenizer(text, return_tensors="pt", truncation=True, max_length=512)
+            inputs = inputs.to(self.device)
+            # Generate summary
+            outputs = self.model.generate(
+                **inputs,
+                max_length=self.max_length,
+                min_length=self.min_length,
+                num_beams=self.num_beams,
+                do_sample=True,
+                temperature=self.temperature,
+                early_stopping=False,
+                length_penalty=1.0,
+                no_repeat_ngram_size=2,
+                repetition_penalty=1.0
             )
-        summary = tokenizer.decode(summary_ids[0], skip_special_tokens=True)
-        summaries.append(summary)
+            # Decode and return
+            summary = self.tokenizer.decode(outputs[0], skip_special_tokens=True)
+            return summary
+        except Exception as e:
+            print(f"Error generating summary: {e}")
+            return ""
 
-    df[args.summary_col] = summaries
-    df.to_csv(args.output_path, index=False, encoding='utf-8-sig')
-    print(f"Saved with summary to {args.output_path}")
+    def summarize_batch(self, texts: List[str], chunk_size=200) -> List[str]:
+        """
+        Summarize texts in chunks to handle large datasets on T4 GPU
+        
+        Args:
+            texts: List of texts to summarize
+            chunk_size: Number of texts to process in each chunk (default: 200 for T4)
+        """
+        print(f"Processing {len(texts)} texts in chunks of {chunk_size}")
+        
+        all_summaries = []
+        total_chunks = (len(texts) + chunk_size - 1) // chunk_size
+        
+        for chunk_idx in range(total_chunks):
+            start_idx = chunk_idx * chunk_size
+            end_idx = min((chunk_idx + 1) * chunk_size, len(texts))
+            chunk_texts = texts[start_idx:end_idx]
+            
+            print(f"Processing chunk {chunk_idx + 1}/{total_chunks} (texts {start_idx + 1}-{end_idx})")
+            
+            # Process this chunk
+            chunk_summaries = self._process_chunk(chunk_texts)
+            all_summaries.extend(chunk_summaries)
+            
+            # Force memory cleanup after each chunk
+            if torch.cuda.is_available():
+                print(f"Cleaning memory after chunk {chunk_idx + 1}")
+                self._clean_gpu_memory(force=True)
+                time.sleep(0.5)  # Give GPU time to settle
+        
+        print(f"Completed processing all {len(texts)} texts")
+        return all_summaries
 
-if __name__ == '__main__':
-    main() 
+    def _process_chunk(self, texts: List[str]) -> List[str]:
+        """Process a single chunk of texts using pilot study approach"""
+        prompts = [self.prompt.replace('{text}', self._validate_text(t)) for t in texts]
+        summaries = []
+        # Process texts one by one (like pilot study) to avoid batch issues
+        for i, prompt in enumerate(prompts):
+            # Check if text has meaningful content
+            text_content = prompt.replace(self.prompt.replace('{text}', ''), '').strip()
+            if text_content and len(text_content) > 10:
+                retry_count = 0
+                while retry_count < self.max_retries:
+                    try:
+                        summary = self._generate_summary(prompt)
+                        summaries.append(summary)
+                        self.error_count = 0
+                        break
+                    except Exception as e:
+                        retry_count += 1
+                        self.error_count += 1
+                        print(f"Error in summarization text {i+1} (attempt {retry_count}): {e}")
+                        # Force GPU memory cleanup on CUDA errors
+                        if "CUDA" in str(e) and torch.cuda.is_available():
+                            print("CUDA error detected, forcing GPU memory cleanup...")
+                            self._clean_gpu_memory(force=True)
+                            time.sleep(1)  # Wait before retry
+                        # If max retries reached, return empty summary
+                        if retry_count >= self.max_retries:
+                            print(f"Max retries reached for text {i+1}, returning empty summary")
+                            summaries.append("")
+                            break
+            else:
+                summaries.append("")
+            # Less frequent cleanup
+            if torch.cuda.is_available() and i % 10 == 0:
+                self._clean_gpu_memory()
+            # Force cleanup only if too many errors
+            if self.error_count > 5 and torch.cuda.is_available():
+                print("Too many errors detected, forcing GPU cleanup...")
+                self._clean_gpu_memory(force=True)
+                self.error_count = 0
+        return summaries 

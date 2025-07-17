@@ -114,29 +114,26 @@ class ReviewSummarizer:
 
     def _generate_summary(self, text: str) -> str:
         """Generate summary for a single text (matching pilot study approach)"""
-                try:
+        try:
             # Prepare input with truncation at tokenizer level (like pilot study)
             inputs = self.tokenizer(text, return_tensors="pt", truncation=True, max_length=512)
             inputs = inputs.to(self.device)
-            
             # Generate summary
             outputs = self.model.generate(
                 **inputs,
-                        max_length=self.max_length,
-                        min_length=self.min_length,
-                        num_beams=self.num_beams,
+                max_length=self.max_length,
+                min_length=self.min_length,
+                num_beams=self.num_beams,
                 do_sample=True,
-                        temperature=self.temperature,
+                temperature=self.temperature,
                 early_stopping=False,
                 length_penalty=1.0,
                 no_repeat_ngram_size=2,
                 repetition_penalty=1.0
             )
-            
             # Decode and return
             summary = self.tokenizer.decode(outputs[0], skip_special_tokens=True)
             return summary
-            
         except Exception as e:
             print(f"Error generating summary: {e}")
             return ""
@@ -178,7 +175,6 @@ class ReviewSummarizer:
         """Process a single chunk of texts using pilot study approach"""
         prompts = [self.prompt.replace('{text}', self._validate_text(t)) for t in texts]
         summaries = []
-        
         # Process texts one by one (like pilot study) to avoid batch issues
         for i, prompt in enumerate(prompts):
             # Check if text has meaningful content
@@ -191,19 +187,15 @@ class ReviewSummarizer:
                         summaries.append(summary)
                         self.error_count = 0
                         break
-                        
-                except Exception as e:
+                    except Exception as e:
                         retry_count += 1
                         self.error_count += 1
-                        
                         print(f"Error in summarization text {i+1} (attempt {retry_count}): {e}")
-                        
                         # Force GPU memory cleanup on CUDA errors
                         if "CUDA" in str(e) and torch.cuda.is_available():
                             print("CUDA error detected, forcing GPU memory cleanup...")
                             self._clean_gpu_memory(force=True)
                             time.sleep(1)  # Wait before retry
-                        
                         # If max retries reached, return empty summary
                         if retry_count >= self.max_retries:
                             print(f"Max retries reached for text {i+1}, returning empty summary")
@@ -211,15 +203,12 @@ class ReviewSummarizer:
                             break
             else:
                 summaries.append("")
-            
             # Less frequent cleanup
             if torch.cuda.is_available() and i % 10 == 0:
                 self._clean_gpu_memory()
-            
             # Force cleanup only if too many errors
             if self.error_count > 5 and torch.cuda.is_available():
                 print("Too many errors detected, forcing GPU cleanup...")
                 self._clean_gpu_memory(force=True)
                 self.error_count = 0
-        
         return summaries 
